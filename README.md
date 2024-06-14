@@ -41,4 +41,4 @@ Once the JAR file is built, you can run it using
 - Follow the tutorial at [vaadin.com/docs/latest/tutorial/overview](https://vaadin.com/docs/latest/tutorial/overview).
 - Create new projects at [start.vaadin.com](https://start.vaadin.com/).
 - Search UI components and their usage examples at [vaadin.com/docs/latest/components](https://vaadin.com/docs/latest/components).
-- Report issues, create pull requests in [GitHub](https://github.com/marcogrecuccio/better-buiz).
+- Report issues, create pull requests in [GitHub](https://github.com/mgrecuccio/better-buiz).
