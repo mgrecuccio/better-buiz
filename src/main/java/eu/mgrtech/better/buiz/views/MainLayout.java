@@ -2,10 +2,13 @@ package eu.mgrtech.better.buiz.views;
 
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
-import com.vaadin.flow.component.html.Footer;
-import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.html.Header;
-import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.avatar.Avatar;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.contextmenu.MenuItem;
+import com.vaadin.flow.component.contextmenu.SubMenu;
+import com.vaadin.flow.component.html.*;
+import com.vaadin.flow.component.menubar.MenuBar;
+import com.vaadin.flow.component.menubar.MenuBarVariant;
 import com.vaadin.flow.component.orderedlayout.Scroller;
 import com.vaadin.flow.component.sidenav.SideNav;
 import com.vaadin.flow.component.sidenav.SideNavItem;
@@ -35,9 +38,20 @@ public class MainLayout extends AppLayout {
         toggle.setAriaLabel("Menu toggle");
 
         viewTitle = new H1();
-        viewTitle.addClassNames(LumoUtility.FontSize.LARGE, LumoUtility.Margin.NONE);
+        viewTitle.addClassNames("main-view-title", LumoUtility.FontSize.LARGE, LumoUtility.Margin.NONE);
 
-        addToNavbar(true, toggle, viewTitle);
+        Avatar avatar = new Avatar("User");
+        MenuBar menuBar = new MenuBar();
+        menuBar.addThemeVariants(MenuBarVariant.LUMO_TERTIARY_INLINE);
+
+        MenuItem menuItem = menuBar.addItem(avatar);
+        SubMenu subMenu = menuItem.getSubMenu();
+        subMenu.addItem("Profile");
+        subMenu.addItem("Settings");
+        subMenu.addItem("Help");
+        subMenu.addItem("Sign out");
+
+        addToNavbar(true, toggle, viewTitle, menuBar);
     }
 
     private void addDrawerContent() {
@@ -52,7 +66,6 @@ public class MainLayout extends AppLayout {
 
     private SideNav createNavigation() {
         SideNav nav = new SideNav();
-
         nav.addItem(
                 new SideNavItem("Organization", OrganizationView.class, LineAwesomeIcon.PENCIL_RULER_SOLID.create()));
         nav.addItem(new SideNavItem("Clients", ClientsView.class, LineAwesomeIcon.BUSINESS_TIME_SOLID.create()));
@@ -64,7 +77,12 @@ public class MainLayout extends AppLayout {
 
     private Footer createFooter() {
         Footer layout = new Footer();
+        layout.addClassNames("layout", LumoUtility.Gap.MEDIUM);
 
+        Paragraph content = new Paragraph();
+        content.addClassName("footer-content");
+        content.setText("MGRTECH all rights reserved");
+        layout.add(content);
         return layout;
     }
 

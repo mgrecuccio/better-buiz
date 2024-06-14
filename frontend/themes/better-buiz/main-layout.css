@@ -18,3 +18,18 @@ vaadin-side-nav-item vaadin-icon {
 [slot="drawer"]:is(header, footer):is(:empty) {
   display: none;
 }
+
+.main-view-title {
+    width: 93%;
+}
+
+footer.layout {
+    align-items: end;
+    width: 100%;
+    flex-grow: 1;
+}
+
+.footer-content {
+    width: 100%;
+    font-size: var(--lumo-font-size-xs);
+}

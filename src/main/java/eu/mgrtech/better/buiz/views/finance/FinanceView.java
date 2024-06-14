@@ -1,6 +1,7 @@
 package eu.mgrtech.better.buiz.views.finance;
 
 import com.vaadin.flow.component.Composite;
+import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -10,11 +11,12 @@ import com.vaadin.flow.theme.lumo.LumoUtility.Gap;
 import eu.mgrtech.better.buiz.views.MainLayout;
 
 @PageTitle("Finance")
-@Route(value = "my-view", layout = MainLayout.class)
+@Route(value = "finances", layout = MainLayout.class)
 public class FinanceView extends Composite<VerticalLayout> {
 
     public FinanceView() {
         VerticalLayout layoutColumn2 = new VerticalLayout();
+
         HorizontalLayout layoutRow = new HorizontalLayout();
         Paragraph textSmall = new Paragraph();
         getContent().setWidth("100%");
