@@ -1,37 +1,31 @@
 package eu.mgrtech.better.buiz.views.clients;
 
-import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Composite;
-import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.html.Span;
-import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.theme.lumo.LumoUtility.Gap;
 import eu.mgrtech.better.buiz.services.ClientService;
 import eu.mgrtech.better.buiz.views.MainLayout;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @PageTitle("Clients")
 @Route(value = "clients", layout = MainLayout.class)
 public class ClientsView extends Composite<VerticalLayout> {
 
-    public static final String VAT_NUMBER = "vatNumber";
-    public static final String NAME = "name";
-    public static final String STATUS = "Status";
-    public static final String INTERMEDIARY = "intermediary";
-    public static final String CONTACT_EMAIL_ADDRESS = "contactEmailAddress";
+    private static final String VAT_NUMBER = "vatNumber";
+    private static final String NAME = "name";
+    private static final String STATUS = "Status";
+    private static final String INTERMEDIARY = "intermediary";
+    private static final String CONTACT_EMAIL_ADDRESS = "contactEmailAddress";
+
     private final ClientService clientService;
 
     Grid<ClientInfo> clientInfoGrid = new Grid<>(ClientInfo.class);
+    TextField filterClients = new TextField();
 
     public ClientsView(ClientService clientService) {
         this.clientService = clientService;
@@ -39,7 +33,7 @@ public class ClientsView extends Composite<VerticalLayout> {
 
         configureClientsGrid();
 
-        getContent().add(clientInfoGrid);
+        getContent().add(getFilterToolbar(), clientInfoGrid);
         updateList();
     }
 
@@ -53,21 +47,33 @@ public class ClientsView extends Composite<VerticalLayout> {
     }
 
     private Span createStatusIcon(ClientStatus status) {
-        Span confirmed = new Span(status.name());
-        switch (status) {
-            case ClientStatus.ACTIVE:
-                confirmed.getElement().getThemeList().add("badge success");
-                break;
-            case ClientStatus.INACTIVE:
-                confirmed.getElement().getThemeList().add("badge error");
-                break;
+        Span statusSpan = new Span(status.name());
+        String badgeType = switch (status) {
+            case ACTIVE:
+                yield "badge success";
+            case INACTIVE:
+                yield "badge contrast";
+            case REFUSED:
+                yield "badge error";
             default:
-                confirmed.getElement().getThemeList().add("badge contrast");
-        }
-        return confirmed;
+                yield "badge";
+        };
+        statusSpan.getElement().getThemeList().add(badgeType);
+        return statusSpan;
+    }
+
+    private HorizontalLayout getFilterToolbar() {
+        filterClients.setPlaceholder("Filter...");
+        filterClients.setClearButtonVisible(true);
+        filterClients.setValueChangeMode(ValueChangeMode.LAZY);
+        filterClients.addValueChangeListener(e -> updateList());
+
+        var toolbar = new HorizontalLayout(filterClients);
+        toolbar.addClassName("toolbar");
+        return toolbar;
     }
 
     private void updateList() {
-        clientInfoGrid.setItems(clientService.getClientInfoByCompanyVatNumber(""));
+        clientInfoGrid.setItems(clientService.getClientInfoByCompanyVatNumber(filterClients.getValue()));
     }
 }
