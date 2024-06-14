@@ -1,17 +1,22 @@
 package eu.mgrtech.better.buiz.views.organization;
 
+import eu.mgrtech.better.buiz.services.OrganizationService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class OrganizationViewTest {
 
     private OrganizationView organizationView;
 
+    private OrganizationService organizationService;
+
     @BeforeEach
     public void setUp() {
-        organizationView = new OrganizationView();
+        organizationService = new OrganizationService();
+        organizationView = new OrganizationView(organizationService);
     }
 
     @Test
