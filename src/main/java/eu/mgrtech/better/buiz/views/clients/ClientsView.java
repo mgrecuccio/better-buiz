@@ -1,6 +1,7 @@
 package eu.mgrtech.better.buiz.views.clients;
 
 import com.vaadin.flow.component.Composite;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Span;
@@ -10,8 +11,11 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouteParameters;
+import com.vaadin.flow.router.RouterLink;
 import eu.mgrtech.better.buiz.services.ClientService;
 import eu.mgrtech.better.buiz.views.MainLayout;
+import eu.mgrtech.better.buiz.views.clients.details.ClientDetailsView;
 import eu.mgrtech.better.buiz.views.clients.events.SaveEvent;
 
 @PageTitle("Clients")
@@ -70,6 +74,12 @@ public class ClientsView extends Composite<VerticalLayout> {
         clientsGrid.addComponentColumn(clientInfo -> createStatusIcon(
                 clientInfo.getStatus())).setHeader(STATUS);
         clientsGrid.getColumns().forEach(col -> col.setAutoWidth(true));
+        clientsGrid.setSelectionMode(Grid.SelectionMode.SINGLE);
+        clientsGrid.addItemClickListener(e -> goToClientDetails(e.getItem()));
+    }
+
+    private void goToClientDetails(Client client) {
+        UI.getCurrent().navigate(ClientDetailsView.class, client.getId().toString());
     }
 
     private Span createStatusIcon(ClientStatus status) {
