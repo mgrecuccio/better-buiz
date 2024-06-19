@@ -20,7 +20,7 @@ class OrganizationViewTest {
     }
 
     @Test
-    public void organizationViewContentTest() {
+    public void organizationViewContainsInfoFormAndInfoBannerTest() {
         assertEquals("Company Details", organizationView.viewTitle.getText());
         assertEquals("The information is taken directly from the BCE - Banque-Carrefour des Entreprises.", organizationView.infoBoxContent.getText());
         assertNotNull(organizationView.organizationInfoForm);
