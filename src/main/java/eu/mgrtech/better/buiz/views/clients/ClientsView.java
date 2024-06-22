@@ -11,11 +11,10 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.router.RouteParameters;
-import com.vaadin.flow.router.RouterLink;
 import eu.mgrtech.better.buiz.services.ClientService;
 import eu.mgrtech.better.buiz.views.MainLayout;
 import eu.mgrtech.better.buiz.views.clients.details.ClientDetailsView;
+import eu.mgrtech.better.buiz.entities.Client;
 import eu.mgrtech.better.buiz.views.clients.events.SaveEvent;
 
 @PageTitle("Clients")

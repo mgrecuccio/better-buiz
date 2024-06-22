@@ -1,24 +1,28 @@
 package eu.mgrtech.better.buiz.views.clients.details;
 
 import com.vaadin.flow.component.Composite;
-import com.vaadin.flow.component.Text;
-import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.tabs.*;
+import com.vaadin.flow.component.tabs.TabSheet;
+import com.vaadin.flow.component.tabs.TabSheetVariant;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import eu.mgrtech.better.buiz.views.MainLayout;
-
-import static java.awt.AWTEventMulticaster.add;
+import eu.mgrtech.better.buiz.views.clients.details.projects.ProjectsTab;
 
 @PageTitle("Client Details")
 @Route(value = "clients/:clientId?", layout = MainLayout.class)
 public class ClientDetailsView extends Composite<VerticalLayout> implements HasUrlParameter<String> {
 
+    public static final String DETAILS_TAB_TITLE = "Details";
+    public static final String CONTRACTS_TAB_TITLE = "Contracts";
+    public static final String PROJECTS_TAB_TITLE = "Projects";
     private String clientId;
+    private DetailsTab detailsTab = new DetailsTab();
+    private ContractTab contractTab = new ContractTab();
+    private ProjectsTab projectsTab;
 
     @Override
     public void setParameter(BeforeEvent beforeEvent, String clientId) {
@@ -29,13 +33,19 @@ public class ClientDetailsView extends Composite<VerticalLayout> implements HasU
     }
 
     public ClientDetailsView() {
-        Tab details = new Tab("Contracts");
-        Tab payment = new Tab("Projects");
+        addClassName("client-details-view");
 
-        Tabs tabs = new Tabs(details, payment);
-        tabs.addThemeVariants(TabsVariant.LUMO_CENTERED);
-        tabs.setWidthFull();
-        getContent().add(tabs);
+        projectsTab = new ProjectsTab(clientId);
+
+        TabSheet tabSheet = new TabSheet();
+        tabSheet.add(DETAILS_TAB_TITLE, detailsTab);
+        tabSheet.add(CONTRACTS_TAB_TITLE, contractTab);
+        tabSheet.add(PROJECTS_TAB_TITLE, projectsTab);
+
+        tabSheet.addThemeVariants(TabSheetVariant.LUMO_TABS_CENTERED);
+        tabSheet.setWidthFull();
+
+        getContent().add(tabSheet);
         getContent().setWidthFull();
         getContent().setAlignItems(FlexComponent.Alignment.CENTER);
     }

@@ -1,6 +1,7 @@
-package eu.mgrtech.better.buiz.views.clients;
+package eu.mgrtech.better.buiz.entities;
 
-import eu.mgrtech.better.buiz.views.clients.validator.VATNumber;
+import eu.mgrtech.better.buiz.views.clients.ClientStatus;
+import eu.mgrtech.better.buiz.validator.VATNumber;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;

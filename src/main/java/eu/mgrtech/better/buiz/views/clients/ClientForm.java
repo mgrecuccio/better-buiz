@@ -11,6 +11,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.shared.Registration;
+import eu.mgrtech.better.buiz.entities.Client;
 import eu.mgrtech.better.buiz.views.clients.events.CloseEvent;
 import eu.mgrtech.better.buiz.views.clients.events.SaveEvent;
 
