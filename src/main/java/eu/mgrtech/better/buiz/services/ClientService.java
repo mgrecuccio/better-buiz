@@ -1,12 +1,13 @@
 package eu.mgrtech.better.buiz.services;
 
-import eu.mgrtech.better.buiz.views.clients.Client;
+import eu.mgrtech.better.buiz.entities.Client;
 import eu.mgrtech.better.buiz.views.clients.ClientStatus;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ClientService {
@@ -15,6 +16,7 @@ public class ClientService {
 
     public ClientService() {
         this.clients.add(new Client(
+                UUID.randomUUID(),
                 "BE1123455",
                 "Mutual It",
                 ClientStatus.ACTIVE,
@@ -22,6 +24,7 @@ public class ClientService {
                 "marc.doe@email.com"));
 
         this.clients.add(new Client(
+                UUID.randomUUID(),
                 "BE9923466",
                 "AXA",
                 ClientStatus.ACTIVE,
@@ -29,6 +32,7 @@ public class ClientService {
                 "jimmy.foh@email.com"));
 
         this.clients.add(new Client(
+                UUID.randomUUID(),
                 "BE6545640",
                 "BNP Paribas",
                 ClientStatus.DRAFT,
@@ -36,6 +40,7 @@ public class ClientService {
                 "elise.loy@email.com"));
 
         this.clients.add(new Client(
+                UUID.randomUUID(),
                 "BE3412631",
                 "Meddition",
                 ClientStatus.INACTIVE,
@@ -43,6 +48,7 @@ public class ClientService {
                 "loris.backer@email.com"));
 
         this.clients.add(new Client(
+                UUID.randomUUID(),
                 "BE4521631",
                 "Arhs",
                 ClientStatus.DECLINED,

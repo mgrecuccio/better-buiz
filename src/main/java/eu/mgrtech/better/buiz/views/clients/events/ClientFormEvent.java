@@ -1,7 +1,7 @@
 package eu.mgrtech.better.buiz.views.clients.events;
 
 import com.vaadin.flow.component.ComponentEvent;
-import eu.mgrtech.better.buiz.views.clients.Client;
+import eu.mgrtech.better.buiz.entities.Client;
 import eu.mgrtech.better.buiz.views.clients.ClientForm;
 import lombok.Getter;
 

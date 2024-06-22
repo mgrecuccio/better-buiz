@@ -2,10 +2,9 @@ package eu.mgrtech.better.buiz.views.clients;
 
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.data.provider.BackEndDataProvider;
-import com.vaadin.flow.data.provider.DataProvider;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import eu.mgrtech.better.buiz.services.ClientService;
+import eu.mgrtech.better.buiz.entities.Client;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
