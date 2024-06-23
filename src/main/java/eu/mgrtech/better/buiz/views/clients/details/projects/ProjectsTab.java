@@ -11,42 +11,47 @@ import eu.mgrtech.better.buiz.services.ProjectService;
 
 public class ProjectsTab extends Div {
 
+    private static final String COMPANY_PROJECT = "Company Project";
+    private static final String JOB_TITLE = "Job Title";
+
     private final ProjectService projectService;
     private final String clientId;
 
-    Grid<Project> grid = new Grid<>(Project.class, false);
-    ProjectDetailsFormLayout projectDetailsForm = new ProjectDetailsFormLayout();
+    Grid<Project> projectGrid = new Grid<>(Project.class, false);
 
-    public ProjectsTab(String clientId) {
-        addClassName("projects-tab");
+    public ProjectsTab(ProjectService projectService, String clientId) {
+        addClassName("projects-view");
 
         this.clientId = clientId;
-        this.projectService = new ProjectService();
+        this.projectService = projectService;
 
-        grid.addColumn(Project::getClientName).setHeader("Client");
-        grid.addColumn(Project::getRole).setHeader("Profession");
-        grid.addColumn(createToggleDetailsRenderer(grid));
-
-        grid.setDetailsVisibleOnClick(false);
-        grid.setItemDetailsRenderer(createPersonDetailsRenderer());
-
-        grid.setItems(projectService.getAllByClientId(clientId));
-
-        grid.addThemeVariants(GridVariant.LUMO_ROW_STRIPES);
-        add(grid);
+        configureProjectsGrid();
+        add(projectGrid);
     }
 
-    private Renderer<Project> createToggleDetailsRenderer(Grid<Project> grid) {
+    private void configureProjectsGrid() {
+        projectGrid.addThemeVariants(GridVariant.LUMO_ROW_STRIPES);
+        projectGrid.addColumn(Project::getCompanyProject).setHeader(COMPANY_PROJECT);
+        projectGrid.addColumn(Project::getJobTitle).setHeader(JOB_TITLE);
+        projectGrid.addColumn(createToggleProejctDetailsRenderer());
+
+        projectGrid.setItems(projectService.getAllByClientId(clientId));
+
+        projectGrid.setDetailsVisibleOnClick(false);
+        projectGrid.setItemDetailsRenderer(createPersonDetailsRenderer());
+    }
+
+    private Renderer<Project> createToggleProejctDetailsRenderer() {
         return LitRenderer.<Project>of(
                         "<vaadin-button theme=\"tertiary\" @click=\"${handleClick}\">Open details</vaadin-button>")
                 .withFunction("handleClick",
                         project -> {
-                            grid.setDetailsVisible(project, !grid.isDetailsVisible(project));
-                            projectDetailsForm.cancelEditEvent();
+                            projectGrid.setDetailsVisible(project, !projectGrid.isDetailsVisible(project));
+                            //projectDetailsForm.cancelEditEvent();
                         });
     }
 
     private ComponentRenderer<ProjectDetailsFormLayout, Project> createPersonDetailsRenderer() {
-        return new ComponentRenderer<>(() -> projectDetailsForm, ProjectDetailsFormLayout::setProject);
+        return new ComponentRenderer<>(ProjectDetailsFormLayout::new, ProjectDetailsFormLayout::setProject);
     }
 }

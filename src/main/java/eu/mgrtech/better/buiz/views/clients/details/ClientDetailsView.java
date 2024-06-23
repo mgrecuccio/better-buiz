@@ -9,6 +9,7 @@ import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import eu.mgrtech.better.buiz.services.ProjectService;
 import eu.mgrtech.better.buiz.views.MainLayout;
 import eu.mgrtech.better.buiz.views.clients.details.projects.ProjectsTab;
 
@@ -16,13 +17,15 @@ import eu.mgrtech.better.buiz.views.clients.details.projects.ProjectsTab;
 @Route(value = "clients/:clientId?", layout = MainLayout.class)
 public class ClientDetailsView extends Composite<VerticalLayout> implements HasUrlParameter<String> {
 
-    public static final String DETAILS_TAB_TITLE = "Details";
-    public static final String CONTRACTS_TAB_TITLE = "Contracts";
-    public static final String PROJECTS_TAB_TITLE = "Projects";
+    private static final String DETAILS_TAB_TITLE = "Details";
+    private static final String CONTRACTS_TAB_TITLE = "Contracts";
+    private static final String PROJECTS_TAB_TITLE = "Projects";
+
     private String clientId;
-    private DetailsTab detailsTab = new DetailsTab();
-    private ContractTab contractTab = new ContractTab();
-    private ProjectsTab projectsTab;
+
+    DetailsTab detailsTab = new DetailsTab();
+    ContractTab contractTab = new ContractTab();
+    ProjectsTab projectsTab;
 
     @Override
     public void setParameter(BeforeEvent beforeEvent, String clientId) {
@@ -35,7 +38,7 @@ public class ClientDetailsView extends Composite<VerticalLayout> implements HasU
     public ClientDetailsView() {
         addClassName("client-details-view");
 
-        projectsTab = new ProjectsTab(clientId);
+        projectsTab = new ProjectsTab(new ProjectService(), clientId);
 
         TabSheet tabSheet = new TabSheet();
         tabSheet.add(DETAILS_TAB_TITLE, detailsTab);
