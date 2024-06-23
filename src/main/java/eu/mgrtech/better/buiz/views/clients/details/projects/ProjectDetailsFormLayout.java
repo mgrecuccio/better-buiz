@@ -5,38 +5,42 @@ import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.icon.SvgIcon;
 import com.vaadin.flow.component.textfield.TextField;
 import eu.mgrtech.better.buiz.entities.Project;
-import eu.mgrtech.better.buiz.services.ProjectService;
 import org.vaadin.lineawesome.LineAwesomeIcon;
-
-import java.util.stream.Stream;
 
 public class ProjectDetailsFormLayout extends FormLayout {
 
-    private final SvgIcon editIcon = LineAwesomeIcon.EDIT.create();
-    private final SvgIcon saveChangesIcon = LineAwesomeIcon.SAVE.create();
-    private final SvgIcon cancelChangesIcon = LineAwesomeIcon.UNDO_SOLID.create();
-    private final TextField clientField = new TextField("Client");
-    private final TextField addressField = new TextField("Address");
-    private final TextField roleField = new TextField("Role");
-    private final TextField typeField = new TextField("Type");
-    private final TextField descriptionField = new TextField("Description");
-    private final DatePicker startDateField = new DatePicker("Start date");
-    private final DatePicker endDateField = new DatePicker("End date");
 
-    private Project project;
+    public static final String EDIT_PROJECT_DETAILS_TOOLTIP = "Edit project details";
+    /*SvgIcon saveChangesIcon = LineAwesomeIcon.SAVE.create();
+            SvgIcon cancelChangesIcon = LineAwesomeIcon.UNDO_SOLID.create();*/
+    TextField companyProject = new TextField("Company Project");
+    TextField jobDescription = new TextField("Job Description");
+    TextField jobType = new TextField("Job Type");
+    TextField jobAddress = new TextField("Job Address");
+    DatePicker startDate = new DatePicker("Start date");
+    DatePicker endDate = new DatePicker("End date");
+
+    SvgIcon editIcon;
+    SvgIcon cancelChangesIcon;
+    SvgIcon saveChangesIcon;
 
     public ProjectDetailsFormLayout() {
-        Stream.of(clientField, addressField, typeField, roleField,
-                        descriptionField)
-                .forEach(field -> {
-                    field.setReadOnly(true);
-                    add(field);
-                });
-        startDateField.setReadOnly(true);
-        endDateField.setReadOnly(true);
-        add(startDateField, endDateField);
+        configureFormFields(true);
+        configureActionsIcons();
 
-        editIcon.addClickListener(e -> updateEditFields());
+        add(
+            companyProject,
+            jobDescription,
+            jobType,
+            jobAddress,
+            startDate,
+            endDate,
+            editIcon
+        );
+
+        setColspan(editIcon, 3);
+
+        /*editIcon.addClickListener(e -> updateEditFields());
         editIcon.setTooltipText("Edit project details");
         add(editIcon);
 
@@ -48,24 +52,38 @@ public class ProjectDetailsFormLayout extends FormLayout {
         cancelChangesIcon.setVisible(false);
         cancelChangesIcon.addClickListener(svgIconClickEvent -> cancelEditEvent());
         cancelChangesIcon.setTooltipText("Forget changes");
-        add(cancelChangesIcon);
+        add(cancelChangesIcon);*/
 
         setResponsiveSteps(new FormLayout.ResponsiveStep("0", 3));
     }
 
-    public void setProject(Project project) {
-        this.project = project;
-        clientField.setValue(project.getClientName());
-        addressField.setValue(project.getProjectDetails().getAddress());
-        roleField.setValue(project.getRole());
-        typeField.setValue(project.getProjectDetails().getType());
-        descriptionField.setValue(project.getProjectDetails().getDescription());
-        startDateField.setValue(project.getProjectDetails().getStartDate());
-        endDateField.setValue(project.getProjectDetails().getEndDate());
+    private void configureActionsIcons() {
+        editIcon = LineAwesomeIcon.EDIT.create();
+        editIcon.setTooltipText(EDIT_PROJECT_DETAILS_TOOLTIP);
+        editIcon.addClickListener(e -> configureFormFields(false));
     }
 
-    public void updateEditFields() {
-        Stream.of(clientField, addressField, typeField, roleField, descriptionField)
+    private void configureFormFields(boolean readonly) {
+        companyProject.setReadOnly(readonly);
+        jobType.setReadOnly(readonly);
+        jobAddress.setReadOnly(readonly);
+        jobDescription.setReadOnly(readonly);
+        startDate.setReadOnly(readonly);
+        endDate.setReadOnly(readonly);
+    }
+
+    public void setProject(Project project) {
+        companyProject.setValue(project.getCompanyProject());
+        jobType.setValue(project.getJobType());
+        jobAddress.setValue(project.getJobAddress());
+        jobDescription.setValue(project.getJobDescription());
+        startDate.setValue(project.getStartDate());
+        endDate.setValue(project.getEndDate());
+    }
+
+
+   /* public void updateEditFields() {
+        Stream.of(companyProject, addressField, typeField, roleField, descriptionField)
                 .forEach(field -> field.setReadOnly(false));
         startDateField.setReadOnly(false);
         endDateField.setReadOnly(false);
@@ -75,9 +93,8 @@ public class ProjectDetailsFormLayout extends FormLayout {
         cancelChangesIcon.setVisible(true);
     }
 
-    public
-    void cancelEditEvent() {
-        Stream.of(clientField, addressField, typeField, roleField, descriptionField)
+    public void cancelEditEvent() {
+        Stream.of(companyProject, addressField, typeField, roleField, descriptionField)
                 .forEach(field -> field.setReadOnly(true));
         startDateField.setReadOnly(true);
         endDateField.setReadOnly(true);
@@ -89,7 +106,7 @@ public class ProjectDetailsFormLayout extends FormLayout {
     }
 
     private void saveEditEvent() {
-        Stream.of(clientField, addressField, typeField, roleField, descriptionField)
+        Stream.of(companyProject, addressField, typeField, roleField, descriptionField)
                 .forEach(field -> field.setReadOnly(true));
         startDateField.setReadOnly(true);
         endDateField.setReadOnly(true);
@@ -97,5 +114,5 @@ public class ProjectDetailsFormLayout extends FormLayout {
         cancelChangesIcon.setVisible(false);
         editIcon.setVisible(true);
         System.out.println("Data saved");
-    }
+    }*/
 }

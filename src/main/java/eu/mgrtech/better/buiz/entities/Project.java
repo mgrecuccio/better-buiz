@@ -1,21 +1,22 @@
 package eu.mgrtech.better.buiz.entities;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Project {
 
-    @NotNull
     private String id;
-    @NotNull
-    private String clientName;
-    @NotNull
-    private String role;
-    @NotNull
-    private ProjectDetails projectDetails;
+    private String companyProject;
+    private String jobTitle;
+    private String jobDescription;
+    private String jobType;
+    private String jobAddress;
+    private LocalDate startDate;
+    private LocalDate endDate;
 }

@@ -10,6 +10,7 @@ import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import eu.mgrtech.better.buiz.views.MainLayout;
+import eu.mgrtech.better.buiz.views.clients.details.projects.ProjectsTab;
 
 @PageTitle("Client Details")
 @Route(value = "clients/:clientId?", layout = MainLayout.class)
@@ -19,9 +20,10 @@ public class ClientDetailsView extends Composite<VerticalLayout> implements HasU
     public static final String CONTRACTS_TAB_TITLE = "Contracts";
     public static final String PROJECTS_TAB_TITLE = "Projects";
     private String clientId;
-    private DetailsTab detailsTab = new DetailsTab();
-    private ContractTab contractTab = new ContractTab();
-    private ProjectsTab projectsTab = new ProjectsTab();
+
+    DetailsTab detailsTab = new DetailsTab();
+    ContractTab contractTab = new ContractTab();
+    ProjectsTab projectsTab;
 
     @Override
     public void setParameter(BeforeEvent beforeEvent, String clientId) {
@@ -33,6 +35,8 @@ public class ClientDetailsView extends Composite<VerticalLayout> implements HasU
 
     public ClientDetailsView() {
         addClassName("client-details-view");
+
+        projectsTab = new ProjectsTab(new ProjectService(), clientId);
 
         TabSheet tabSheet = new TabSheet();
         tabSheet.add(DETAILS_TAB_TITLE, detailsTab);

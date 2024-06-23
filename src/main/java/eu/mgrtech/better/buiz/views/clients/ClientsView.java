@@ -26,7 +26,7 @@ public class ClientsView extends Composite<VerticalLayout> {
     private static final String STATUS = "Status";
     private static final String INTERMEDIARY = "intermediary";
     private static final String CONTACT_EMAIL_ADDRESS = "contactEmailAddress";
-    public static final String ADD_CLIENT_BTN_LABEL = "Add Client";
+    private static final String ADD_CLIENT_BTN_LABEL = "Add Client";
 
     private final ClientService clientService;
 
@@ -37,6 +37,7 @@ public class ClientsView extends Composite<VerticalLayout> {
 
     public ClientsView(ClientService clientService) {
         addClassName("clients-list-view");
+
         this.clientService = clientService;
         getContent().setSizeFull();
 

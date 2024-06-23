@@ -17,12 +17,12 @@ import eu.mgrtech.better.buiz.views.clients.events.SaveEvent;
 
 public class ClientForm extends FormLayout {
 
-    public static final String VAT_NUMBER = "VAT Number";
-    public static final String CLIENT_NAME = "Client name";
-    public static final String INTERMEDIARY_NAME = "Intermediary name";
-    public static final String INTERMEDIARY_EMAIL = "Intermediary email";
-    public static final String SAVE_BTN_LABEL = "Save";
-    public static final String CANCEL_BTN_LABEL = "Cancel";
+    private static final String VAT_NUMBER = "VAT Number";
+    private static final String CLIENT_NAME = "Client name";
+    private static final String INTERMEDIARY_NAME = "Intermediary name";
+    private static final String INTERMEDIARY_EMAIL = "Intermediary email";
+    private static final String SAVE_BTN_LABEL = "Save";
+    private static final String CANCEL_BTN_LABEL = "Cancel";
 
     TextField vatNumber = new TextField(VAT_NUMBER);
     TextField name = new TextField(CLIENT_NAME);
