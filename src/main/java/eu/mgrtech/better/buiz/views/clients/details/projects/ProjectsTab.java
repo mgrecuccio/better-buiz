@@ -6,7 +6,9 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.data.renderer.LitRenderer;
 import com.vaadin.flow.data.renderer.Renderer;
+
 import eu.mgrtech.better.buiz.entities.Project;
+import eu.mgrtech.better.buiz.events.project.SaveEvent;
 import eu.mgrtech.better.buiz.services.ProjectService;
 
 public class ProjectsTab extends Div {
@@ -16,6 +18,7 @@ public class ProjectsTab extends Div {
 
     private final ProjectService projectService;
     private final String clientId;
+    private ProjectDetailsFormLayout projectDetailsForm = new ProjectDetailsFormLayout();
 
     Grid<Project> projectGrid = new Grid<>(Project.class, false);
 
@@ -26,6 +29,8 @@ public class ProjectsTab extends Div {
         this.projectService = projectService;
 
         configureProjectsGrid();
+        projectDetailsForm.addSaveListener(this::updateProject);
+
         add(projectGrid);
     }
 
@@ -41,17 +46,18 @@ public class ProjectsTab extends Div {
         projectGrid.setItemDetailsRenderer(createPersonDetailsRenderer());
     }
 
+    private void updateProject(SaveEvent saveEvent) {
+        projectService.update(saveEvent.getProject());
+    }
+
     private Renderer<Project> createToggleProejctDetailsRenderer() {
-        return LitRenderer.<Project>of(
-                        "<vaadin-button theme=\"tertiary\" @click=\"${handleClick}\">Open details</vaadin-button>")
-                .withFunction("handleClick",
-                        project -> {
-                            projectGrid.setDetailsVisible(project, !projectGrid.isDetailsVisible(project));
-                            //projectDetailsForm.cancelEditEvent();
-                        });
+        return LitRenderer.<Project>of("<vaadin-button theme=\"tertiary\" @click=\"${handleClick}\">Open details</vaadin-button>")
+                          .withFunction("handleClick", project -> {
+                              projectGrid.setDetailsVisible(project, !projectGrid.isDetailsVisible(project));
+                          });
     }
 
     private ComponentRenderer<ProjectDetailsFormLayout, Project> createPersonDetailsRenderer() {
-        return new ComponentRenderer<>(ProjectDetailsFormLayout::new, ProjectDetailsFormLayout::setProject);
+        return new ComponentRenderer<>(() -> projectDetailsForm, ProjectDetailsFormLayout::setProject);
     }
 }

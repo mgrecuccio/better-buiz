@@ -1,4 +1,4 @@
-package eu.mgrtech.better.buiz.views.clients.events;
+package eu.mgrtech.better.buiz.events.client;
 
 import com.vaadin.flow.component.ComponentEvent;
 import eu.mgrtech.better.buiz.entities.Client;
@@ -6,7 +6,7 @@ import eu.mgrtech.better.buiz.views.clients.ClientForm;
 import lombok.Getter;
 
 @Getter
-public abstract class ClientFormEvent extends ComponentEvent<ClientForm> {
+public abstract sealed class ClientFormEvent extends ComponentEvent<ClientForm> permits CloseEvent, SaveEvent {
 
     private Client client;
 
@@ -15,3 +15,5 @@ public abstract class ClientFormEvent extends ComponentEvent<ClientForm> {
         this.client = client;
     }
 }
+
+
