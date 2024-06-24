@@ -20,6 +20,8 @@ public class ProjectsTab extends Div {
     private final String clientId;
     private ProjectDetailsFormLayout projectDetailsForm = new ProjectDetailsFormLayout();
 
+    private ComponentRenderer<ProjectDetailsFormLayout, Project> personDetailsRenderer;
+
     Grid<Project> projectGrid = new Grid<>(Project.class, false);
 
     public ProjectsTab(ProjectService projectService, String clientId) {
@@ -40,14 +42,21 @@ public class ProjectsTab extends Div {
         projectGrid.addColumn(Project::getJobTitle).setHeader(JOB_TITLE);
         projectGrid.addColumn(createToggleProejctDetailsRenderer());
 
-        projectGrid.setItems(projectService.getAllByClientId(clientId));
+        updatedProjectList();
 
         projectGrid.setDetailsVisibleOnClick(false);
-        projectGrid.setItemDetailsRenderer(createPersonDetailsRenderer());
+        personDetailsRenderer = createPersonDetailsRenderer();
+        projectGrid.setItemDetailsRenderer(personDetailsRenderer);
     }
 
     private void updateProject(SaveEvent saveEvent) {
-        projectService.update(saveEvent.getProject());
+        Project updatedProject = saveEvent.getProject();
+        projectService.update(updatedProject);
+        updatedProjectList();
+    }
+
+    private void updatedProjectList() {
+        projectGrid.setItems(projectService.getAllByClientId(clientId));
     }
 
     private Renderer<Project> createToggleProejctDetailsRenderer() {

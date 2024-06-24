@@ -76,6 +76,7 @@ public class ClientService {
     }
 
     public void saveClient(Client client) {
+        client.setId(UUID.randomUUID());
         this.clients.add(client);
     }
 }

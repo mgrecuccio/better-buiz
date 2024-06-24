@@ -20,19 +20,25 @@ public class ProjectDetailsFormLayout extends FormLayout {
     private static final String EDIT_PROJECT_DETAILS_TOOLTIP = "Edit project details";
     private static final String SAVE_CHANGES_PROJECT_DETAILS_TOOLTIP = "Save changes";
     private static final String UNDO_CHANGES_PROJECT_DETAILS_TOOLTIP = "Undo changes";
+    private static final String COMPANY_PROJECT_LABEL = "Company Project";
+    private static final String JOB_DESCRIPTION_LABEL = "Job Description";
+    private static final String JOB_TYPE_LABEL = "Job Type";
+    private static final String JOB_ADDRESS_LABEL = "Job Address";
+    private static final String START_DATE_LABEL = "Start date";
+    private static final String END_DATE_LABEL = "End date";
 
-    TextField companyProject = new TextField("Company Project");
-    TextField jobDescription = new TextField("Job Description");
-    TextField jobType = new TextField("Job Type");
-    TextField jobAddress = new TextField("Job Address");
-    DatePicker startDate = new DatePicker("Start date");
-    DatePicker endDate = new DatePicker("End date");
+    TextField companyProject = new TextField(COMPANY_PROJECT_LABEL);
+    TextField jobDescription = new TextField(JOB_DESCRIPTION_LABEL);
+    TextField jobType = new TextField(JOB_TYPE_LABEL);
+    TextField jobAddress = new TextField(JOB_ADDRESS_LABEL);
+    DatePicker startDate = new DatePicker(START_DATE_LABEL);
+    DatePicker endDate = new DatePicker(END_DATE_LABEL);
+
+    private Project project;
 
     SvgIcon editIcon;
     SvgIcon cancelChangesIcon;
     SvgIcon saveChangesIcon;
-
-    private Project project;
 
     public ProjectDetailsFormLayout() {
         addClassName("project-details-form");
@@ -51,7 +57,7 @@ public class ProjectDetailsFormLayout extends FormLayout {
 
         editIcon = LineAwesomeIcon.EDIT.create();
         editIcon.setTooltipText(EDIT_PROJECT_DETAILS_TOOLTIP);
-        editIcon.addClickListener(e -> openFormInEditMode());
+        editIcon.addClickListener(e -> configureActionIcons(true));
 
         saveChangesIcon = LineAwesomeIcon.SAVE.create();
         saveChangesIcon.setTooltipText(SAVE_CHANGES_PROJECT_DETAILS_TOOLTIP);
@@ -71,7 +77,7 @@ public class ProjectDetailsFormLayout extends FormLayout {
         if (thereArePendingChanges()) {
             initFormFields();
         }
-        closeFormEditMode();
+        configureActionIcons(false);
     }
 
     private boolean thereArePendingChanges() {
@@ -84,9 +90,11 @@ public class ProjectDetailsFormLayout extends FormLayout {
     }
 
     private void persistChanges() {
-        updateProject();
-        fireEvent(new SaveEvent(this, project));
-        closeFormEditMode();
+        if (thereArePendingChanges()) {
+            updateProject();
+            fireEvent(new SaveEvent(this, project));
+            configureActionIcons(false);
+        }
     }
 
     private void updateProject() {
@@ -98,18 +106,11 @@ public class ProjectDetailsFormLayout extends FormLayout {
         project.setEndDate(endDate.getValue());
     }
 
-    private void closeFormEditMode() {
-        editIcon.setVisible(true);
-        saveChangesIcon.setVisible(false);
-        cancelChangesIcon.setVisible(false);
-        configureFormFields(true);
-    }
-
-    private void openFormInEditMode() {
-        editIcon.setVisible(false);
-        saveChangesIcon.setVisible(true);
-        cancelChangesIcon.setVisible(true);
-        configureFormFields(false);
+    private void configureActionIcons(boolean isEditMode) {
+        editIcon.setVisible(!isEditMode);
+        saveChangesIcon.setVisible(isEditMode);
+        cancelChangesIcon.setVisible(isEditMode);
+        configureFormFields(!isEditMode);
     }
 
     private void configureFormFields(boolean readonly) {
@@ -121,11 +122,6 @@ public class ProjectDetailsFormLayout extends FormLayout {
         endDate.setReadOnly(readonly);
     }
 
-    public void setProject(Project project) {
-        this.project = project;
-        initFormFields();
-    }
-
     private void initFormFields() {
         companyProject.setValue(project.getCompanyProject());
         jobType.setValue(project.getJobType());
@@ -133,6 +129,11 @@ public class ProjectDetailsFormLayout extends FormLayout {
         jobDescription.setValue(project.getJobDescription());
         startDate.setValue(project.getStartDate());
         endDate.setValue(project.getEndDate());
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+        initFormFields();
     }
 
     public Registration addSaveListener(ComponentEventListener<SaveEvent> listener) {
