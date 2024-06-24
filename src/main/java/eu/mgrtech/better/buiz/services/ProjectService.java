@@ -41,6 +41,10 @@ public class ProjectService {
         return projects;
     }
 
+    public void update(Project project) {
+        System.out.println(project.getId() + " updated!");
+    }
+
     private class ProjectBuilder {
         private String id;
         private String companyProject;

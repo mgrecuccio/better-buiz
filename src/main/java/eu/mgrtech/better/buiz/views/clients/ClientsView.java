@@ -15,7 +15,7 @@ import eu.mgrtech.better.buiz.services.ClientService;
 import eu.mgrtech.better.buiz.views.MainLayout;
 import eu.mgrtech.better.buiz.views.clients.details.ClientDetailsView;
 import eu.mgrtech.better.buiz.entities.Client;
-import eu.mgrtech.better.buiz.views.clients.events.SaveEvent;
+import eu.mgrtech.better.buiz.events.client.SaveEvent;
 
 @PageTitle("Clients")
 @Route(value = "clients", layout = MainLayout.class)
