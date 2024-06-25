@@ -29,9 +29,8 @@ public class Project {
             return false;
         Project project = (Project) o;
         return Objects.equals(id, project.id) && Objects.equals(companyProject, project.companyProject) && Objects.equals(jobTitle, project.jobTitle)
-               && Objects.equals(jobDescription, project.jobDescription) && Objects.equals(jobType, project.jobType) && Objects.equals(jobAddress,
-                                                                                                                                       project.jobAddress
-        ) && Objects.equals(startDate, project.startDate) && Objects.equals(endDate, project.endDate);
+               && Objects.equals(jobDescription, project.jobDescription) && Objects.equals(jobType, project.jobType) &&
+               Objects.equals(jobAddress, project.jobAddress) && Objects.equals(startDate, project.startDate) && Objects.equals(endDate, project.endDate);
     }
 
     @Override
