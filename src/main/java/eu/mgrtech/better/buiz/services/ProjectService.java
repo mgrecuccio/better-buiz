@@ -11,9 +11,9 @@ import eu.mgrtech.better.buiz.entities.Project;
 @Service
 public class ProjectService {
 
-    private static List<Project> projects = new ArrayList<>();
+    private List<Project> projects = new ArrayList<>();
 
-    static {
+    public ProjectService() {
         Project project1 = new Project(
                 "id-1",
                 "Mutual IT",
@@ -37,9 +37,6 @@ public class ProjectService {
                 LocalDate.of(2024, 5, 30)
         );
         projects.add(project2);
-    }
-
-    public ProjectService() {
     }
 
     public List<Project> getAllByClientId(String clientId) {

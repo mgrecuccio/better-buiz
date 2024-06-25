@@ -11,15 +11,15 @@ import eu.mgrtech.better.buiz.entities.Project;
 import eu.mgrtech.better.buiz.events.project.SaveEvent;
 import eu.mgrtech.better.buiz.services.ProjectService;
 
-public class ProjectsTab extends Div {
+public class ProjectsTab extends Div  {
 
     private static final String COMPANY_PROJECT = "Company Project";
     private static final String JOB_TITLE = "Job Title";
 
     private final ProjectService projectService;
     private final String clientId;
-    private ProjectDetailsFormLayout projectDetailsForm = new ProjectDetailsFormLayout();
 
+    private ProjectDetailsFormLayout projectDetailsForm = new ProjectDetailsFormLayout();
     private ComponentRenderer<ProjectDetailsFormLayout, Project> personDetailsRenderer;
 
     Grid<Project> projectGrid = new Grid<>(Project.class, false);
@@ -27,8 +27,8 @@ public class ProjectsTab extends Div {
     public ProjectsTab(ProjectService projectService, String clientId) {
         addClassName("projects-view");
 
-        this.clientId = clientId;
         this.projectService = projectService;
+        this.clientId = clientId;
 
         configureProjectsGrid();
         projectDetailsForm.addSaveListener(this::updateProject);
@@ -53,6 +53,7 @@ public class ProjectsTab extends Div {
         Project updatedProject = saveEvent.getProject();
         projectService.update(updatedProject);
         updatedProjectList();
+        projectGrid.setDetailsVisible(updatedProject, true);
     }
 
     private void updatedProjectList() {

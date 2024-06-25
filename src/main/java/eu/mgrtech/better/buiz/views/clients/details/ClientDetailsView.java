@@ -9,6 +9,7 @@ import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import eu.mgrtech.better.buiz.services.ProjectService;
 import eu.mgrtech.better.buiz.views.MainLayout;
 import eu.mgrtech.better.buiz.views.clients.details.projects.ProjectsTab;
 

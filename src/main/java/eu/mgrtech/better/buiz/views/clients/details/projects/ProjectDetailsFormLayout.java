@@ -27,15 +27,14 @@ public class ProjectDetailsFormLayout extends FormLayout {
     private static final String START_DATE_LABEL = "Start date";
     private static final String END_DATE_LABEL = "End date";
 
+    private Project project;
+
     TextField companyProject = new TextField(COMPANY_PROJECT_LABEL);
     TextField jobDescription = new TextField(JOB_DESCRIPTION_LABEL);
     TextField jobType = new TextField(JOB_TYPE_LABEL);
     TextField jobAddress = new TextField(JOB_ADDRESS_LABEL);
     DatePicker startDate = new DatePicker(START_DATE_LABEL);
     DatePicker endDate = new DatePicker(END_DATE_LABEL);
-
-    private Project project;
-
     SvgIcon editIcon;
     SvgIcon cancelChangesIcon;
     SvgIcon saveChangesIcon;
@@ -93,8 +92,8 @@ public class ProjectDetailsFormLayout extends FormLayout {
         if (thereArePendingChanges()) {
             updateProject();
             fireEvent(new SaveEvent(this, project));
-            configureActionIcons(false);
         }
+        configureActionIcons(false);
     }
 
     private void updateProject() {
