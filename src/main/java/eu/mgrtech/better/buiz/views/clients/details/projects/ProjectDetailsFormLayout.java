@@ -50,6 +50,15 @@ public class ProjectDetailsFormLayout extends FormLayout {
         setResponsiveSteps(new FormLayout.ResponsiveStep("0", 3));
     }
 
+    private void configureFormFields(boolean readonly) {
+        companyProject.setReadOnly(readonly);
+        jobType.setReadOnly(readonly);
+        jobAddress.setReadOnly(readonly);
+        jobDescription.setReadOnly(readonly);
+        startDate.setReadOnly(readonly);
+        endDate.setReadOnly(readonly);
+    }
+
     private Span buildActionIconsSection() {
         Span iconActionSection = new Span();
         iconActionSection.addClassName("action-icons");
@@ -72,22 +81,6 @@ public class ProjectDetailsFormLayout extends FormLayout {
         return iconActionSection;
     }
 
-    private void discardChanges() {
-        if (thereArePendingChanges()) {
-            initFormFields();
-        }
-        configureActionIcons(false);
-    }
-
-    private boolean thereArePendingChanges() {
-        return (!Objects.equals(this.companyProject.getValue(), project.getCompanyProject()) ||
-                !Objects.equals(this.jobDescription.getValue(), project.getJobDescription()) ||
-                !Objects.equals(this.jobType.getValue(), project.getJobType()) ||
-                !Objects.equals(this.jobAddress.getValue(), project.getJobAddress()) ||
-                !Objects.equals(this.startDate.getValue(), project.getStartDate()) ||
-                !Objects.equals(this.endDate.getValue(), project.getEndDate()));
-    }
-
     private void persistChanges() {
         if (thereArePendingChanges()) {
             updateProject();
@@ -105,6 +98,22 @@ public class ProjectDetailsFormLayout extends FormLayout {
         project.setEndDate(endDate.getValue());
     }
 
+    private boolean thereArePendingChanges() {
+        return (!Objects.equals(this.companyProject.getValue(), project.getCompanyProject()) ||
+                !Objects.equals(this.jobDescription.getValue(), project.getJobDescription()) ||
+                !Objects.equals(this.jobType.getValue(), project.getJobType()) ||
+                !Objects.equals(this.jobAddress.getValue(), project.getJobAddress()) ||
+                !Objects.equals(this.startDate.getValue(), project.getStartDate()) ||
+                !Objects.equals(this.endDate.getValue(), project.getEndDate()));
+    }
+
+    private void discardChanges() {
+        if (thereArePendingChanges()) {
+            initFormFields();
+        }
+        configureActionIcons(false);
+    }
+
     private void configureActionIcons(boolean isEditMode) {
         editIcon.setVisible(!isEditMode);
         saveChangesIcon.setVisible(isEditMode);
@@ -112,13 +121,9 @@ public class ProjectDetailsFormLayout extends FormLayout {
         configureFormFields(!isEditMode);
     }
 
-    private void configureFormFields(boolean readonly) {
-        companyProject.setReadOnly(readonly);
-        jobType.setReadOnly(readonly);
-        jobAddress.setReadOnly(readonly);
-        jobDescription.setReadOnly(readonly);
-        startDate.setReadOnly(readonly);
-        endDate.setReadOnly(readonly);
+    public void setProject(Project project) {
+        this.project = project;
+        initFormFields();
     }
 
     private void initFormFields() {
@@ -128,11 +133,6 @@ public class ProjectDetailsFormLayout extends FormLayout {
         jobDescription.setValue(project.getJobDescription());
         startDate.setValue(project.getStartDate());
         endDate.setValue(project.getEndDate());
-    }
-
-    public void setProject(Project project) {
-        this.project = project;
-        initFormFields();
     }
 
     public Registration addSaveListener(ComponentEventListener<SaveEvent> listener) {

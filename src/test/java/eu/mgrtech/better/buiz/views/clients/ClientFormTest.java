@@ -38,7 +38,7 @@ class ClientFormTest {
         Client client = new Client();
         form.setClient(client);
         form.name.setValue("ClientName");
-        form.vatNumber.setValue("BE1234567");
+        form.vatNumber.setValue("BE123456");
         form.intermediary.setValue("John Doe");
         form.contactEmailAddress.setValue("john@doe.com");
 
@@ -50,7 +50,7 @@ class ClientFormTest {
         Client savedClient = savedClientRef.get();
 
         assertEquals("ClientName", savedClient.getName());
-        assertEquals("BE1234567", savedClient.getVatNumber());
+        assertEquals("BE123456", savedClient.getVatNumber());
         assertEquals("john@doe.com", savedClient.getContactEmailAddress());
         assertEquals("John Doe", savedClient.getIntermediary());
         assertEquals(ClientStatus.DRAFT, savedClient.getStatus());
