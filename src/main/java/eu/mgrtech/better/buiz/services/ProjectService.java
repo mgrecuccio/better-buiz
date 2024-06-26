@@ -1,5 +1,9 @@
 package eu.mgrtech.better.buiz.services;
 
+import eu.mgrtech.better.buiz.entities.Project;
+import eu.mgrtech.better.buiz.entities.ProjectDetails;
+import org.springframework.stereotype.Service;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
