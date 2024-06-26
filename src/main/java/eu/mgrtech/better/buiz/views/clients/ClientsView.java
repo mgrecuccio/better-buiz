@@ -15,7 +15,7 @@ import eu.mgrtech.better.buiz.services.ClientService;
 import eu.mgrtech.better.buiz.views.MainLayout;
 import eu.mgrtech.better.buiz.views.clients.details.ClientDetailsView;
 import eu.mgrtech.better.buiz.entities.Client;
-import eu.mgrtech.better.buiz.views.clients.events.SaveEvent;
+import eu.mgrtech.better.buiz.events.client.SaveEvent;
 
 @PageTitle("Clients")
 @Route(value = "clients", layout = MainLayout.class)
@@ -26,7 +26,7 @@ public class ClientsView extends Composite<VerticalLayout> {
     private static final String STATUS = "Status";
     private static final String INTERMEDIARY = "intermediary";
     private static final String CONTACT_EMAIL_ADDRESS = "contactEmailAddress";
-    public static final String ADD_CLIENT_BTN_LABEL = "Add Client";
+    private static final String ADD_CLIENT_BTN_LABEL = "Add Client";
 
     private final ClientService clientService;
 
@@ -37,6 +37,7 @@ public class ClientsView extends Composite<VerticalLayout> {
 
     public ClientsView(ClientService clientService) {
         addClassName("clients-list-view");
+
         this.clientService = clientService;
         getContent().setSizeFull();
 

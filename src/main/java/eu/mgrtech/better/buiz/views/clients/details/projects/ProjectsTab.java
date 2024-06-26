@@ -6,44 +6,65 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.data.renderer.LitRenderer;
 import com.vaadin.flow.data.renderer.Renderer;
+
 import eu.mgrtech.better.buiz.entities.Project;
+import eu.mgrtech.better.buiz.events.project.SaveEvent;
 import eu.mgrtech.better.buiz.services.ProjectService;
 
-public class ProjectsTab extends Div {
+public class ProjectsTab extends Div  {
+
+    private static final String COMPANY_PROJECT = "Company Project";
+    private static final String JOB_TITLE = "Job Title";
 
     private final ProjectService projectService;
     private final String clientId;
 
-    Grid<Project> grid = new Grid<>(Project.class, false);
-    ProjectDetailsFormLayout projectDetailsForm = new ProjectDetailsFormLayout();
+    private ProjectDetailsFormLayout projectDetailsForm = new ProjectDetailsFormLayout();
+    private ComponentRenderer<ProjectDetailsFormLayout, Project> personDetailsRenderer;
 
-    public ProjectsTab(String clientId) {
-        addClassName("projects-tab");
+    Grid<Project> projectGrid = new Grid<>(Project.class, false);
 
+    public ProjectsTab(ProjectService projectService, String clientId) {
+        addClassName("projects-view");
+
+        this.projectService = projectService;
         this.clientId = clientId;
-        this.projectService = new ProjectService();
 
-        grid.addColumn(Project::getClientName).setHeader("Client");
-        grid.addColumn(Project::getRole).setHeader("Profession");
-        grid.addColumn(createToggleDetailsRenderer(grid));
+        configureProjectsGrid();
+        projectDetailsForm.addSaveListener(this::updateProject);
 
-        grid.setDetailsVisibleOnClick(false);
-        grid.setItemDetailsRenderer(createPersonDetailsRenderer());
-
-        grid.setItems(projectService.getAllByClientId(clientId));
-
-        grid.addThemeVariants(GridVariant.LUMO_ROW_STRIPES);
-        add(grid);
+        add(projectGrid);
     }
 
-    private Renderer<Project> createToggleDetailsRenderer(Grid<Project> grid) {
-        return LitRenderer.<Project>of(
-                        "<vaadin-button theme=\"tertiary\" @click=\"${handleClick}\">Open details</vaadin-button>")
-                .withFunction("handleClick",
-                        project -> {
-                            grid.setDetailsVisible(project, !grid.isDetailsVisible(project));
-                            projectDetailsForm.cancelEditEvent();
-                        });
+    private void configureProjectsGrid() {
+        projectGrid.addThemeVariants(GridVariant.LUMO_ROW_STRIPES);
+        projectGrid.addColumn(Project::getCompanyProject).setHeader(COMPANY_PROJECT);
+        projectGrid.addColumn(Project::getJobTitle).setHeader(JOB_TITLE);
+        projectGrid.addColumn(createToggleProejctDetailsRenderer());
+
+        updatedProjectList();
+
+        projectGrid.setDetailsVisibleOnClick(false);
+        personDetailsRenderer = createPersonDetailsRenderer();
+        projectGrid.setItemDetailsRenderer(personDetailsRenderer);
+    }
+
+    private void updateProject(SaveEvent saveEvent) {
+        Project updatedProject = saveEvent.getProject();
+        projectService.update(updatedProject);
+        updatedProjectList();
+        projectGrid.setDetailsVisible(updatedProject, true);
+    }
+
+    private void updatedProjectList() {
+        projectGrid.setItems(projectService.getAllByClientId(clientId));
+    }
+
+    private Renderer<Project> createToggleProejctDetailsRenderer() {
+        return LitRenderer.<Project>of("<vaadin-button theme=\"tertiary\" @click=\"${handleClick}\">Open details</vaadin-button>")
+                          .withFunction("handleClick", project -> {
+                              projectGrid.setDetailsVisible(project, !projectGrid.isDetailsVisible(project));
+                          });
     }
 
     private ComponentRenderer<ProjectDetailsFormLayout, Project> createPersonDetailsRenderer() {

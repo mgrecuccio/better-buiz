@@ -1,10 +1,13 @@
 package eu.mgrtech.better.buiz.views.clients.details;
 
+import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.html.Div;
 
 public class ContractTab extends Div {
 
     public ContractTab() {
-        add("This is the contract tab");
+        addClassName("contract-tab");
+        Text text = new Text("This is the Contracts tab content");
+        add(text);
     }
 }
