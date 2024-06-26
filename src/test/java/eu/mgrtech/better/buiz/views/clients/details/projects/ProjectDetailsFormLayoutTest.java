@@ -104,10 +104,10 @@ class ProjectDetailsFormLayoutTest {
 
         ComponentUtil.fireEvent(editIcon, new ClickEvent<>(editIcon));
 
-        projectDetailsForm.jobDescription.setValue("A new description");
+        projectDetailsForm.jobDescription.setValue("A new description test");
         ComponentUtil.fireEvent(saveChangesIcon, new ClickEvent<>(saveChangesIcon));
 
-        assertEquals("A new description", project.getJobDescription());
+        assertEquals("A new description test", project.getJobDescription());
     }
 
     @Test
@@ -117,9 +117,9 @@ class ProjectDetailsFormLayoutTest {
 
         ComponentUtil.fireEvent(editIcon, new ClickEvent<>(editIcon));
 
-        projectDetailsForm.jobDescription.setValue("A new description");
+        projectDetailsForm.jobDescription.setValue("A new description test");
         ComponentUtil.fireEvent(cancelChangesIcon, new ClickEvent<>(cancelChangesIcon));
 
-        assertNotEquals("A new description", project.getJobDescription());
+        assertNotEquals("A new description test", project.getJobDescription());
     }
 }
