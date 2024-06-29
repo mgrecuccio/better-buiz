@@ -1,7 +1,7 @@
 package eu.mgrtech.better.buiz.services;
 
 import eu.mgrtech.better.buiz.entities.Client;
-import eu.mgrtech.better.buiz.views.clients.ClientStatus;
+import eu.mgrtech.better.buiz.entities.ClientStatus;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 

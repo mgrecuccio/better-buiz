@@ -2,6 +2,8 @@ package eu.mgrtech.better.buiz.views.clients;
 
 import com.vaadin.flow.component.button.Button;
 import eu.mgrtech.better.buiz.entities.Client;
+import eu.mgrtech.better.buiz.entities.ClientStatus;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

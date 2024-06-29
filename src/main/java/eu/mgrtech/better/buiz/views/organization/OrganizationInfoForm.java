@@ -3,6 +3,8 @@ package eu.mgrtech.better.buiz.views.organization;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.textfield.TextField;
 
+import eu.mgrtech.better.buiz.entities.Organization;
+
 public class OrganizationInfoForm extends FormLayout {
 
     private static final String VAT_NUMBER = "VAT Number";
@@ -23,15 +25,15 @@ public class OrganizationInfoForm extends FormLayout {
     InfoFormTextField emailAddress = new InfoFormTextField(EMAIL);
     InfoFormTextField generalManager = new InfoFormTextField(GENERAL_MANAGER);
 
-    public OrganizationInfoForm(CompanyInfo companyInfo) {
-        vatNumber.setValue(companyInfo.vatNumber());
-        companyName.setValue(companyInfo.companyName());
-        startDate.setValue(companyInfo.startDate());
-        address.setValue(companyInfo.address());
-        companyType.setValue(companyInfo.companyType());
-        companyStatus.setValue(companyInfo.companyStatus());
-        emailAddress.setValue(companyInfo.companyEmail());
-        generalManager.setValue(companyInfo.companyGeneralManager());
+    public OrganizationInfoForm(Organization organization) {
+        vatNumber.setValue(organization.vatNumber());
+        companyName.setValue(organization.companyName());
+        startDate.setValue(organization.startDate());
+        address.setValue(organization.address());
+        companyType.setValue(organization.companyType());
+        companyStatus.setValue(organization.companyStatus());
+        emailAddress.setValue(organization.companyEmail());
+        generalManager.setValue(organization.companyGeneralManager());
 
         add(vatNumber, companyName, startDate, companyStatus, address, companyType, emailAddress, generalManager);
     }
