@@ -6,7 +6,7 @@ import eu.mgrtech.better.buiz.views.clients.ClientForm;
 import lombok.Getter;
 
 @Getter
-public abstract sealed class ClientFormEvent extends ComponentEvent<ClientForm> permits CloseEvent, SaveEvent {
+public abstract sealed class ClientFormEvent extends ComponentEvent<ClientForm> permits CloseClientFormEvent, SaveOrUpdateClientEvent {
 
     private Client client;
 

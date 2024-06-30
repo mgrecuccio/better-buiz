@@ -9,7 +9,8 @@ import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.data.renderer.LitRenderer;
 import com.vaadin.flow.data.renderer.Renderer;
 import eu.mgrtech.better.buiz.entities.Project;
-import eu.mgrtech.better.buiz.events.project.SaveEvent;
+import eu.mgrtech.better.buiz.events.project.AddProjectEvent;
+import eu.mgrtech.better.buiz.events.project.UpdateProjectEvent;
 import eu.mgrtech.better.buiz.services.ProjectService;
 
 public class ProjectsTab extends Div  {
@@ -37,7 +38,7 @@ public class ProjectsTab extends Div  {
 
         configureProjectsGrid();
         configureToolbar();
-        projectDetailsForm.addSaveListener(this::updateProject);
+        projectDetailsForm.addUpdateListener(this::updateProject);
 
         add(toolbar, projectGrid);
     }
@@ -50,12 +51,18 @@ public class ProjectsTab extends Div  {
 
     private void addProject(Project project) {
         addProjectDialog.setProject(project);
+        addProjectDialog.addProjectListener(this::addNewProject);
         addProjectDialog.open();
+    }
+
+    private void addNewProject(AddProjectEvent addProjectEvent) {
+        projectService.add(addProjectEvent.getProject());
+        updatedProjectList();
     }
 
     private void configureProjectsGrid() {
         projectGrid.addThemeVariants(GridVariant.LUMO_ROW_STRIPES);
-        projectGrid.addColumn(Project::getCompanyProject).setHeader(COMPANY_PROJECT);
+        projectGrid.addColumn(Project::getCompany).setHeader(COMPANY_PROJECT);
         projectGrid.addColumn(Project::getJobTitle).setHeader(JOB_TITLE);
         projectGrid.addColumn(createToggleProejctDetailsRenderer());
 
@@ -66,7 +73,7 @@ public class ProjectsTab extends Div  {
         projectGrid.setItemDetailsRenderer(personDetailsRenderer);
     }
 
-    private void updateProject(SaveEvent saveEvent) {
+    private void updateProject(UpdateProjectEvent saveEvent) {
         Project updatedProject = saveEvent.getProject();
         projectService.update(updatedProject);
         updatedProjectList();

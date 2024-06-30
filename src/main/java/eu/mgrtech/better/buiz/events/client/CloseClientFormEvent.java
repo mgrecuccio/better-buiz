@@ -2,9 +2,9 @@ package eu.mgrtech.better.buiz.events.client;
 
 import eu.mgrtech.better.buiz.views.clients.ClientForm;
 
-public final class CloseEvent extends ClientFormEvent {
+public final class CloseClientFormEvent extends ClientFormEvent {
 
-    public CloseEvent(ClientForm source) {
+    public CloseClientFormEvent(ClientForm source) {
         super(source, null);
     }
 }

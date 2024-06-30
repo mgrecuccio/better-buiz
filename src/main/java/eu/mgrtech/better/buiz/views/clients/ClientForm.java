@@ -12,8 +12,8 @@ import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.shared.Registration;
 import eu.mgrtech.better.buiz.entities.Client;
-import eu.mgrtech.better.buiz.events.client.CloseEvent;
-import eu.mgrtech.better.buiz.events.client.SaveEvent;
+import eu.mgrtech.better.buiz.events.client.CloseClientFormEvent;
+import eu.mgrtech.better.buiz.events.client.SaveOrUpdateClientEvent;
 
 public class ClientForm extends FormLayout {
 
@@ -53,14 +53,14 @@ public class ClientForm extends FormLayout {
         close.addClickShortcut(Key.ESCAPE);
 
         save.addClickListener(event -> validateAndSave());
-        close.addClickListener(event -> fireEvent(new CloseEvent(this)));
+        close.addClickListener(event -> fireEvent(new CloseClientFormEvent(this)));
 
         return new HorizontalLayout(save, close);
     }
 
     private void validateAndSave() {
         if (clientBinder.isValid()) {
-            fireEvent(new SaveEvent(this, clientBinder.getBean()));
+            fireEvent(new SaveOrUpdateClientEvent(this, clientBinder.getBean()));
         }
     }
 
@@ -68,11 +68,11 @@ public class ClientForm extends FormLayout {
         clientBinder.setBean(client);
     }
 
-    public Registration addSaveListener(ComponentEventListener<SaveEvent> listener) {
-        return addListener(SaveEvent.class, listener);
+    public Registration addSaveListener(ComponentEventListener<SaveOrUpdateClientEvent> listener) {
+        return addListener(SaveOrUpdateClientEvent.class, listener);
     }
 
-    public Registration addCloseListener(ComponentEventListener<CloseEvent> listener) {
-        return addListener(CloseEvent.class, listener);
+    public Registration addCloseListener(ComponentEventListener<CloseClientFormEvent> listener) {
+        return addListener(CloseClientFormEvent.class, listener);
     }
 }

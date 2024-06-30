@@ -7,7 +7,7 @@ import eu.mgrtech.better.buiz.views.clients.details.projects.ProjectDetailsFormL
 import lombok.Getter;
 
 @Getter
-public abstract sealed class ProjectDetailsSaveEvent extends ComponentEvent<ProjectDetailsFormLayout> permits SaveEvent {
+public abstract sealed class ProjectDetailsSaveEvent extends ComponentEvent<ProjectDetailsFormLayout> permits UpdateProjectEvent {
 
     private Project project;
 
