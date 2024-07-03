@@ -1,4 +1,4 @@
-package eu.mgrtech.better.buiz.validator;
+package eu.mgrtech.better.buiz.validators;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

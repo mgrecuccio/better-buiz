@@ -1,4 +1,4 @@
-package eu.mgrtech.better.buiz.views.clients.details;
+package eu.mgrtech.better.buiz.views.clients.details.contracts;
 
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.html.Div;

@@ -11,11 +11,13 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+
+import eu.mgrtech.better.buiz.entities.ClientStatus;
 import eu.mgrtech.better.buiz.services.ClientService;
 import eu.mgrtech.better.buiz.views.MainLayout;
 import eu.mgrtech.better.buiz.views.clients.details.ClientDetailsView;
 import eu.mgrtech.better.buiz.entities.Client;
-import eu.mgrtech.better.buiz.events.client.SaveEvent;
+import eu.mgrtech.better.buiz.events.client.SaveOrUpdateClientEvent;
 
 @PageTitle("Clients")
 @Route(value = "clients", layout = MainLayout.class)
@@ -120,7 +122,7 @@ public class ClientsView extends Composite<VerticalLayout> {
         clientForm.addCloseListener(e -> closeAddClientForm());
     }
 
-    private void saveClient(SaveEvent event) {
+    private void saveClient(SaveOrUpdateClientEvent event) {
         clientService.saveClient(event.getClient());
         updateList();
         closeAddClientForm();

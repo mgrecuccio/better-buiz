@@ -1,13 +1,14 @@
 package eu.mgrtech.better.buiz.services;
 
-import eu.mgrtech.better.buiz.views.organization.CompanyInfo;
 import org.springframework.stereotype.Service;
+
+import eu.mgrtech.better.buiz.entities.Organization;
 
 @Service
 public class OrganizationService {
 
-    public CompanyInfo getCompanyInfoByVatNumber(String vatNumber) {
-        return new CompanyInfo(
+    public Organization getOrganizationInfoByVatNumber(String vatNumber) {
+        return new Organization(
                 vatNumber,
                 "MGRTECH",
                 "19-01-2024",

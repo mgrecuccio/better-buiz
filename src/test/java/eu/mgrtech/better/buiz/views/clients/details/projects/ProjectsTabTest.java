@@ -1,7 +1,12 @@
 package eu.mgrtech.better.buiz.views.clients.details.projects;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import eu.mgrtech.better.buiz.entities.Client;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -55,5 +60,18 @@ class ProjectsTabTest {
 
         List<Project> persistedProjects = projectService.getAllByClientId(clientId);
         assertEquals(formProjects, persistedProjects);
+    }
+
+    @Test
+    public void theProjectButtonIsPresentTest() {
+        HorizontalLayout toolbar = projectsTab.toolbar;
+        assertTrue(toolbar.isVisible());
+
+        Button addProjectButton = projectsTab.addProjectButton;
+        assertTrue(addProjectButton.isEnabled());
+        assertTrue(addProjectButton.isVisible());
+
+        AddProjectDialog addProjectDialog = projectsTab.addProjectDialog;
+        assertFalse(addProjectDialog.isOpened());
     }
 }

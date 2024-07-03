@@ -3,6 +3,7 @@ package eu.mgrtech.better.buiz.views.organization;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import eu.mgrtech.better.buiz.entities.Organization;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -21,7 +22,7 @@ class OrganizationInfoFormTest {
 
     @BeforeEach
     public void setUp() {
-        var companyInfo = new CompanyInfo(
+        var organization = new Organization(
                 vatNumber,
                 companyName,
                 startDate,
@@ -32,7 +33,7 @@ class OrganizationInfoFormTest {
                 companyGeneralManager
         );
 
-        organizationInfoForm = new OrganizationInfoForm(companyInfo);
+        organizationInfoForm = new OrganizationInfoForm(organization);
     }
 
     @Test

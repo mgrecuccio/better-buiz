@@ -37,7 +37,7 @@ class ProjectDetailsFormLayoutTest {
 
     @Test
     public void theFormFieldsAreFilledTest() {
-        assertEquals(project.getCompanyProject(), projectDetailsForm.companyProject.getValue());
+        assertEquals(project.getCompany(), projectDetailsForm.company.getValue());
         assertEquals(project.getJobType(), projectDetailsForm.jobType.getValue());
         assertEquals(project.getJobAddress(), projectDetailsForm.jobAddress.getValue());
         assertEquals(project.getJobDescription(), projectDetailsForm.jobDescription.getValue());
@@ -47,7 +47,7 @@ class ProjectDetailsFormLayoutTest {
 
     @Test
     public void theFormFieldsAreReadOnlyTest() {
-        assertTrue(projectDetailsForm.companyProject.isReadOnly());
+        assertTrue(projectDetailsForm.company.isReadOnly());
         assertTrue(projectDetailsForm.jobType.isReadOnly());
         assertTrue(projectDetailsForm.jobAddress.isReadOnly());
         assertTrue(projectDetailsForm.jobDescription.isReadOnly());
@@ -67,7 +67,7 @@ class ProjectDetailsFormLayoutTest {
     }
 
     @Test
-    public void whenIClickOnTheEditIconTheFormIsInEditModeTest() {
+    public void whenClickingOnTheEditIconTheFormIsInEditModeTest() {
         SvgIcon editIcon = projectDetailsForm.editIcon;
         SvgIcon saveChangesIcon = projectDetailsForm.saveChangesIcon;
         SvgIcon cancelChangesIcon = projectDetailsForm.cancelChangesIcon;
@@ -76,7 +76,7 @@ class ProjectDetailsFormLayoutTest {
         assertFalse(saveChangesIcon.isVisible());
         assertFalse(cancelChangesIcon.isVisible());
 
-        assertTrue(projectDetailsForm.companyProject.isReadOnly());
+        assertTrue(projectDetailsForm.company.isReadOnly());
         assertTrue(projectDetailsForm.jobType.isReadOnly());
         assertTrue(projectDetailsForm.jobAddress.isReadOnly());
         assertTrue(projectDetailsForm.jobDescription.isReadOnly());
@@ -89,7 +89,7 @@ class ProjectDetailsFormLayoutTest {
         assertTrue(saveChangesIcon.isVisible());
         assertTrue(cancelChangesIcon.isVisible());
 
-        assertFalse(projectDetailsForm.companyProject.isReadOnly());
+        assertFalse(projectDetailsForm.company.isReadOnly());
         assertFalse(projectDetailsForm.jobType.isReadOnly());
         assertFalse(projectDetailsForm.jobAddress.isReadOnly());
         assertFalse(projectDetailsForm.jobDescription.isReadOnly());

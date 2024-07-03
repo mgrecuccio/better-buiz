@@ -41,7 +41,7 @@ public class OrganizationView extends Composite<VerticalLayout> {
     }
 
     public void configureOrganizationForm() {
-        organizationInfoForm = new OrganizationInfoForm(organizationService.getCompanyInfoByVatNumber("BE1004927621"));
+        organizationInfoForm = new OrganizationInfoForm(organizationService.getOrganizationInfoByVatNumber("BE1004927621"));
         organizationInfoForm.setResponsiveSteps(
                 new FormLayout.ResponsiveStep("0", 1),
                 new FormLayout.ResponsiveStep("500px", 2));

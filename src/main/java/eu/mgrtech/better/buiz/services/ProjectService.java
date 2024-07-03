@@ -1,9 +1,5 @@
 package eu.mgrtech.better.buiz.services;
 
-import eu.mgrtech.better.buiz.entities.Project;
-import eu.mgrtech.better.buiz.entities.ProjectDetails;
-import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +17,10 @@ public class ProjectService {
         Project project1 = new Project(
                 "id-1",
                 "Mutual IT",
-                "Full Time",
                 "Technical Lead",
+                "Leading a team for developing a new product",
+                "Full Time",
                 "Rue de la rue, 1000 Brussels",
-                "Integration of new health insurances",
                 LocalDate.now(),
                 null
         );
@@ -33,9 +29,9 @@ public class ProjectService {
         Project project2 = new Project(
                 "id-2",
                 "Pluxee",
-                "Full Time",
-                "Technical Lead",
                 "Senior Programmer",
+                "Revamping the old application by introducing a new microservices architecture",
+                "Full Time",
                 "Rue de la reine, 1456 Leuven",
                 LocalDate.of(2021, 9, 1),
                 LocalDate.of(2024, 5, 30)
@@ -48,6 +44,9 @@ public class ProjectService {
     }
 
     public void update(Project project) {
-        System.out.println("Project with id " + project.getId() + " updated");
+    }
+
+    public void add(Project project) {
+        this.projects.add(project);
     }
 }

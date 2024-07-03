@@ -1,6 +1,6 @@
-package eu.mgrtech.better.buiz.views.organization;
+package eu.mgrtech.better.buiz.entities;
 
-public record CompanyInfo(
+public record Organization (
         String vatNumber,
         String companyName,
         String startDate,

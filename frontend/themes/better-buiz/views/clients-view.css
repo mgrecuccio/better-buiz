@@ -20,6 +20,11 @@
   --cv-checkerboard-size: 16px;
 }
 
+.projects-tab .project-tab-toolbar {
+  margin-bottom: 1%;
+  margin-bottom: 2%;
+}
+
 .clients-view[dragging] {
   --cv-checkerboard-color1: hsl(var(--cv-blue) / 0.2);
   --cv-checkerboard-color2: hsl(var(--cv-blue) / 0.1);
