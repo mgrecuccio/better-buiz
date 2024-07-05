@@ -15,7 +15,6 @@ public class ProjectService {
 
     public ProjectService() {
         Project project1 = new Project(
-                "id-1",
                 "Mutual IT",
                 "Technical Lead",
                 "Leading a team for developing a new product",
@@ -27,7 +26,6 @@ public class ProjectService {
         projects.add(project1);
 
         Project project2 = new Project(
-                "id-2",
                 "Pluxee",
                 "Senior Programmer",
                 "Revamping the old application by introducing a new microservices architecture",
@@ -48,5 +46,13 @@ public class ProjectService {
 
     public void add(Project project) {
         this.projects.add(project);
+    }
+
+    public void delete(Project project) {
+        projects.remove(project);
+    }
+
+    public void deleteAll() {
+        projects = new ArrayList<>();
     }
 }

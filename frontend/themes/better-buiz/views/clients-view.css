@@ -25,6 +25,13 @@
   margin-bottom: 2%;
 }
 
+.projects-tab .hint-no-projects {
+  padding: var(--lumo-size-l);
+  text-align:  center;
+  font-style: italic;
+  color: var(--lumo-contrast-70pct);
+}
+
 .clients-view[dragging] {
   --cv-checkerboard-color1: hsl(var(--cv-blue) / 0.2);
   --cv-checkerboard-color2: hsl(var(--cv-blue) / 0.1);
