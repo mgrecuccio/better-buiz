@@ -7,7 +7,7 @@ import eu.mgrtech.better.buiz.entities.Project;
 import lombok.Getter;
 
 @Getter
-public abstract sealed class ProjectEvent extends ComponentEvent<Component> permits UpdateProjectEvent, AddProjectEvent {
+public abstract sealed class ProjectEvent extends ComponentEvent<Component> permits AddProjectEvent, DeleteProjectEvent, UpdateProjectEvent {
 
     private Project project;
 

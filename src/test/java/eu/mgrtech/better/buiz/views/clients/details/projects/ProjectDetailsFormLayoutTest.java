@@ -23,7 +23,6 @@ class ProjectDetailsFormLayoutTest {
     @BeforeEach
     public void setUp() {
         project = new Project(
-                "id-1",
                 "Mutual IT",
                 "Full Time",
                 "Technical Lead",

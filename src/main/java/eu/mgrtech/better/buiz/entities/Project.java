@@ -11,7 +11,6 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
 public class Project {
@@ -35,4 +34,22 @@ public class Project {
     private LocalDate startDate;
 
     private LocalDate endDate;
+
+    public Project(
+            String company,
+            String jobTitle,
+            String jobDescription,
+            String jobType,
+            String jobAddress,
+            LocalDate startDate,
+            LocalDate endDate
+    ) {
+        this.company = company;
+        this.jobTitle = jobTitle;
+        this.jobDescription = jobDescription;
+        this.jobType = jobType;
+        this.jobAddress = jobAddress;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
 }

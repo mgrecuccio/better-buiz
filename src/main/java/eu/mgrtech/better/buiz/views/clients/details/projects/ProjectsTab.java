@@ -1,9 +1,13 @@
 package eu.mgrtech.better.buiz.views.clients.details.projects;
 
+import java.util.List;
+
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.data.renderer.LitRenderer;
@@ -11,6 +15,7 @@ import com.vaadin.flow.data.renderer.Renderer;
 
 import eu.mgrtech.better.buiz.entities.Project;
 import eu.mgrtech.better.buiz.events.project.AddProjectEvent;
+import eu.mgrtech.better.buiz.events.project.DeleteProjectEvent;
 import eu.mgrtech.better.buiz.events.project.UpdateProjectEvent;
 import eu.mgrtech.better.buiz.services.ProjectService;
 
@@ -19,6 +24,7 @@ public class ProjectsTab extends Div  {
     private static final String COMPANY_PROJECT = "Company Project";
     private static final String JOB_TITLE = "Job Title";
     public static final String ADD_PROJECT_BTN_LABEL = "Add Project";
+    public static final String NO_PROJECTS_FOUND_HINT_TEXT = "No projects found.";
 
     private final ProjectService projectService;
     private final String clientId;
@@ -30,6 +36,7 @@ public class ProjectsTab extends Div  {
     AddProjectDialog addProjectDialog = new AddProjectDialog();
     Button addProjectButton = new Button(ADD_PROJECT_BTN_LABEL);
     HorizontalLayout toolbar = new HorizontalLayout(addProjectButton);
+    Div noProjectHint = new Div();
 
     public ProjectsTab(ProjectService projectService, String clientId) {
         addClassName("projects-tab");
@@ -37,13 +44,16 @@ public class ProjectsTab extends Div  {
         this.projectService = projectService;
         this.clientId = clientId;
 
+        noProjectHint.setText(NO_PROJECTS_FOUND_HINT_TEXT);
+        noProjectHint.addClassName("hint-no-projects");
+
         configureProjectsGrid();
         configureToolbar();
 
         projectDetailsForm.addUpdateListener(this::updateProject);
         addProjectDialog.addProjectListener(this::addNewProject);
 
-        add(toolbar, projectGrid);
+        add(toolbar, projectGrid, noProjectHint);
     }
 
     private HorizontalLayout configureToolbar() {
@@ -64,15 +74,37 @@ public class ProjectsTab extends Div  {
 
     private void configureProjectsGrid() {
         projectGrid.addThemeVariants(GridVariant.LUMO_ROW_STRIPES);
+
         projectGrid.addColumn(Project::getCompany).setHeader(COMPANY_PROJECT);
         projectGrid.addColumn(Project::getJobTitle).setHeader(JOB_TITLE);
         projectGrid.addColumn(createToggleProejctDetailsRenderer());
+        projectGrid.addComponentColumn(project -> configureDeleteProjectDialog(project));
 
         updatedProjectList();
 
         projectGrid.setDetailsVisibleOnClick(false);
         personDetailsRenderer = createPersonDetailsRenderer();
         projectGrid.setItemDetailsRenderer(personDetailsRenderer);
+    }
+
+    private Icon configureDeleteProjectDialog(Project project) {
+        Icon deleteIcon = VaadinIcon.TRASH.create();
+        deleteIcon.addClickListener(e -> openDeleteProjectDialog(project));
+        return deleteIcon;
+    }
+
+    private void openDeleteProjectDialog(Project project) {
+        DeleteProjectDialog deleteProjectDialog = new DeleteProjectDialog(project);
+        deleteProjectDialog.addDeleteListener(this::deleteProject);
+        deleteProjectDialog.open();
+    }
+
+    private void deleteProject(DeleteProjectEvent deleteProjectEvent) {
+        Project project = deleteProjectEvent.getProject();
+        if (project != null) {
+            projectService.delete(project);
+            updatedProjectList();
+        }
     }
 
     private void updateProject(UpdateProjectEvent updateProjectEvent) {
@@ -83,7 +115,15 @@ public class ProjectsTab extends Div  {
     }
 
     private void updatedProjectList() {
-        projectGrid.setItems(projectService.getAllByClientId(clientId));;
+        List<Project> projectList = projectService.getAllByClientId(clientId);
+        if (projectList.isEmpty()) {
+            projectGrid.setVisible(false);
+            noProjectHint.setVisible(true);
+        } else {
+            noProjectHint.setVisible(false);
+            projectGrid.setVisible(true);
+            projectGrid.setItems(projectService.getAllByClientId(clientId));
+        }
     }
 
     private Renderer<Project> createToggleProejctDetailsRenderer() {

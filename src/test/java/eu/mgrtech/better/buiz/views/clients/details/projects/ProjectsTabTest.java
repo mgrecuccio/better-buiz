@@ -11,12 +11,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.data.renderer.LitRenderer;
 
 import eu.mgrtech.better.buiz.entities.Project;
 import eu.mgrtech.better.buiz.services.ProjectService;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ProjectsTabTest {
@@ -36,7 +38,7 @@ class ProjectsTabTest {
         Grid<Project> projectGrid = projectsTab.projectGrid;
 
         List<Grid.Column<Project>> columns = projectGrid.getColumns();
-        assertEquals(3, columns.size());
+        assertEquals(4, columns.size());
 
         Grid.Column<Project> companyProjectColumn = columns.get(0);
         assertEquals("Company Project", companyProjectColumn.getHeaderText());
@@ -73,5 +75,34 @@ class ProjectsTabTest {
 
         AddProjectDialog addProjectDialog = projectsTab.addProjectDialog;
         assertFalse(addProjectDialog.isOpened());
+    }
+
+    @Test
+    public void theNoProjectsHintIsHiddenWhenThereAreProjectsTest() {
+        Grid<Project> projectGrid = projectsTab.projectGrid;
+
+        assertTrue(projectGrid.isVisible());
+        int projectListSize = projectGrid.getGenericDataView().getItems().toList().size();
+        assertNotEquals(0, projectListSize);
+
+        Div noProjectHint = projectsTab.noProjectHint;
+        assertFalse(noProjectHint.isVisible());
+    }
+
+    @Test
+    public void theNoProjectsHintIsShownWhenThereAreNoProjectsTest() {
+        projectService.deleteAll();
+
+        projectsTab = new ProjectsTab(projectService, clientId);
+
+        Grid<Project> projectGrid = projectsTab.projectGrid;
+
+        assertFalse(projectGrid.isVisible());
+        int projectListSize = projectGrid.getGenericDataView().getItems().toList().size();
+        assertEquals(0, projectListSize);
+
+        Div noProjectHint = projectsTab.noProjectHint;
+        assertTrue(noProjectHint.isVisible());
+        assertEquals("No projects found.", noProjectHint.getText());
     }
 }
