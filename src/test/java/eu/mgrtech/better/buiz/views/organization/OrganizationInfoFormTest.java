@@ -23,6 +23,7 @@ class OrganizationInfoFormTest {
     @BeforeEach
     public void setUp() {
         var organization = new Organization(
+                "id-1",
                 vatNumber,
                 companyName,
                 startDate,

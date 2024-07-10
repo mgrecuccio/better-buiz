@@ -1,37 +1,98 @@
 package eu.mgrtech.better.buiz.views.finance;
 
+import java.util.List;
+
 import com.vaadin.flow.component.Composite;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
-import com.vaadin.flow.component.html.Paragraph;
+import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.theme.lumo.LumoUtility.Gap;
+
+import eu.mgrtech.better.buiz.entities.FinanceSummary;
+import eu.mgrtech.better.buiz.services.FinanceService;
 import eu.mgrtech.better.buiz.views.MainLayout;
 
 @PageTitle("Finance")
 @Route(value = "finances", layout = MainLayout.class)
 public class FinanceView extends Composite<VerticalLayout> {
 
-    public FinanceView() {
-        VerticalLayout layoutColumn2 = new VerticalLayout();
+    private final String orgId = "id-1";
+    private static final String FISCAL_YEAR_BOX_TITLE = "Fiscal Year";
 
-        HorizontalLayout layoutRow = new HorizontalLayout();
-        Paragraph textSmall = new Paragraph();
-        getContent().setWidth("100%");
-        getContent().getStyle().set("flex-grow", "1");
-        layoutColumn2.setWidth("100%");
-        layoutColumn2.getStyle().set("flex-grow", "1");
-        layoutRow.addClassName(Gap.MEDIUM);
-        layoutRow.setWidth("100%");
-        layoutRow.setHeight("min-content");
-        textSmall.setText(
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.");
-        textSmall.setWidth("100%");
-        textSmall.getStyle().set("font-size", "var(--lumo-font-size-xs)");
-        getContent().add(layoutColumn2);
-        getContent().add(layoutRow);
-        layoutRow.add(textSmall);
+    private final FinanceService financeService;
+    private final List<String> fiscalYears;
+    private String currentYear;
+
+    HorizontalLayout graphicLayout = new HorizontalLayout();
+    HorizontalLayout toolbar = new HorizontalLayout();
+    Div summaryDiv = new Div();
+    FinancialGraph financialGraph;
+
+    public FinanceView(FinanceService financeService) {
+        addClassName("finance-view");
+
+        this.financeService = financeService;
+        fiscalYears = financeService.getFiscalYearsForOrganization(orgId);
+        currentYear = fiscalYears.get(0);
+
+        configureToolbar();
+        configureGraphicLayout();
+        getContent().add(toolbar, graphicLayout);
+    }
+
+    private void configureToolbar() {
+        toolbar.addClassName("toolbar");
+
+        Select<String> fiscalYearBox = new Select<>();
+        fiscalYearBox.setLabel(FISCAL_YEAR_BOX_TITLE);
+        fiscalYearBox.setItems(fiscalYears);
+        fiscalYearBox.setValue(currentYear);
+        fiscalYearBox.addValueChangeListener(e -> reloadGraph(e.getValue()));
+
+        toolbar.add(fiscalYearBox);
+    }
+
+    private void reloadGraph(String fiscalYear) {
+        graphicLayout.remove(financialGraph);
+        drawGraph(fiscalYear);
+        graphicLayout.add(financialGraph, summaryDiv);
+    }
+
+    private void configureGraphicLayout() {
+        graphicLayout.addClassName("graphic-layout");
+        graphicLayout.setWidthFull();
+        graphicLayout.setHeight("60%");
+
+        configureSummaryDiv();
+        drawGraph(currentYear);
+
+        graphicLayout.add(financialGraph, summaryDiv);
+    }
+
+    private void configureSummaryDiv() {
+        summaryDiv.addClassName("summary");
+
+        FinanceSummary summary = financeService.getSummaryByOrganization(orgId);
+
+        H2 summaryTitle = new H2(summary.getBankAccountName());
+        summaryTitle.addClassName("title");
+
+        H4 summaryIban = new H4(summary.getBankAccountNumber());
+        summaryIban.addClassName("iban");
+
+        H3 summaryAmount = new H3(summary.getBankAccountBalance());
+        summaryAmount.addClassName("amount");
+
+        summaryDiv.add(summaryTitle, summaryIban, summaryAmount);
+    }
+
+    private void drawGraph(String fiscalYear) {
+        financialGraph = new FinancialGraph(financeService.getFinancialDataByOrganizationAndFiscalYear(orgId, fiscalYear));
+        financialGraph.draw();
     }
 }

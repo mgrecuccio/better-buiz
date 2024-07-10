@@ -164,3 +164,29 @@
   min-width: 64px;
   min-height: 32px;
 }
+
+.finance-view .graphic-layout {
+    margin-top: 40px;
+}
+
+.finance-view .summary {
+  margin-left: -10%;
+  margin-top: 6%
+}
+
+.finance-view .summary .title {
+  font-family: Segoe UI-MONOSPACE;
+}
+
+.finance-view .summary .iban {
+  font-family: Segoe UI-MONOSPACE;
+  font-style: italic;
+}
+
+.finance-view .summary .amount {
+  font-family: Segoe UI-MONOSPACE;
+}
+
+.finance-view .toolbar {
+  margin-left: 6%;
+}
