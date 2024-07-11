@@ -12,12 +12,12 @@ import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
+import eu.mgrtech.better.buiz.entities.Client;
 import eu.mgrtech.better.buiz.entities.ClientStatus;
+import eu.mgrtech.better.buiz.events.client.SaveOrUpdateClientEvent;
 import eu.mgrtech.better.buiz.services.ClientService;
 import eu.mgrtech.better.buiz.views.MainLayout;
 import eu.mgrtech.better.buiz.views.clients.details.ClientDetailsView;
-import eu.mgrtech.better.buiz.entities.Client;
-import eu.mgrtech.better.buiz.events.client.SaveOrUpdateClientEvent;
 
 @PageTitle("Clients")
 @Route(value = "clients", layout = MainLayout.class)
@@ -129,16 +129,11 @@ public class ClientsView extends Composite<VerticalLayout> {
     }
 
     private static String getBadgeTypeByStatus(ClientStatus status) {
-        String badgeType = switch (status) {
-            case ACTIVE:
-                yield "badge success";
-            case INACTIVE:
-                yield "badge contrast";
-            case DECLINED:
-                yield "badge error";
-            default:
-                yield "badge";
+        return switch (status) {
+            case ACTIVE -> "badge success";
+            case INACTIVE -> "badge contrast";
+            case DECLINED -> "badge error";
+            default -> "badge";
         };
-        return badgeType;
     }
 }
