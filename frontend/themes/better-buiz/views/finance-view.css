@@ -190,11 +190,3 @@
 .finance-view .toolbar {
   margin-left: 6%;
 }
-
-.finance-view .transactions-list .filter-transactions {
-  width: 35%;
-}
-
-.finance-view .transactions-list .transactions-grid {
-  max-height: 50%;
-}

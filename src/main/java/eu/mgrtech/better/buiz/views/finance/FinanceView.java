@@ -32,7 +32,6 @@ public class FinanceView extends Composite<VerticalLayout> {
     HorizontalLayout toolbar = new HorizontalLayout();
     Div summaryDiv = new Div();
     FinancialGraph financialGraph;
-    TransactionsList transactionsList;
 
     public FinanceView(FinanceService financeService) {
         addClassName("finance-view");
@@ -43,13 +42,7 @@ public class FinanceView extends Composite<VerticalLayout> {
 
         configureToolbar();
         configureGraphicLayout();
-        configureTransactionsList();
-
-        getContent().add(toolbar, graphicLayout, transactionsList);
-    }
-
-    private void configureTransactionsList() {
-        transactionsList = new TransactionsList(financeService.getTransactionsFor(orgId));
+        getContent().add(toolbar, graphicLayout);
     }
 
     private void configureToolbar() {
@@ -73,7 +66,7 @@ public class FinanceView extends Composite<VerticalLayout> {
     private void configureGraphicLayout() {
         graphicLayout.addClassName("graphic-layout");
         graphicLayout.setWidthFull();
-        graphicLayout.setHeight("50%");
+        graphicLayout.setHeight("60%");
 
         configureSummaryDiv();
         drawGraph(currentYear);
