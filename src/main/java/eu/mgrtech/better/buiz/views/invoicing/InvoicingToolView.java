@@ -1,4 +1,4 @@
-package eu.mgrtech.better.buiz.views.employees;
+package eu.mgrtech.better.buiz.views.invoicing;
 
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.html.Paragraph;
@@ -9,11 +9,11 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.lumo.LumoUtility.Gap;
 import eu.mgrtech.better.buiz.views.MainLayout;
 
-@PageTitle("Employees")
-@Route(value = "employees", layout = MainLayout.class)
-public class EmployeesView extends Composite<VerticalLayout> {
+@PageTitle("Invoicing Tool")
+@Route(value = "invocing-tool", layout = MainLayout.class)
+public class InvoicingToolView extends Composite<VerticalLayout> {
 
-    public EmployeesView() {
+    public InvoicingToolView() {
         VerticalLayout layoutColumn2 = new VerticalLayout();
         HorizontalLayout layoutRow = new HorizontalLayout();
         Paragraph textSmall = new Paragraph();
