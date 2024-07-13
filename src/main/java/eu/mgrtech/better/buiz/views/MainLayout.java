@@ -12,7 +12,7 @@ import com.vaadin.flow.component.sidenav.SideNavItem;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 import eu.mgrtech.better.buiz.views.clients.ClientsView;
-import eu.mgrtech.better.buiz.views.employees.EmployeesView;
+import eu.mgrtech.better.buiz.views.invoicing.InvoicingToolView;
 import eu.mgrtech.better.buiz.views.finance.FinanceView;
 import eu.mgrtech.better.buiz.views.organization.OrganizationView;
 import org.vaadin.lineawesome.LineAwesomeIcon;
@@ -25,7 +25,7 @@ public class MainLayout extends AppLayout {
     private static final String FOOTER_CONTENT = "Powered by MGRTECH© 2024";
     private static final String ORGANIZATION_LABEL = "Organization";
     private static final String CLIENTS_LABEL = "Clients";
-    private static final String EMPLOYEES_LABEL = "Employees";
+    private static final String INVOICING_TOOL_LABEL = "Invoicing Tool";
     private static final String FINANCE_LABEL = "Finance";
     private static final String APP_NAME = "BetterBuiz";
     private static final String PROFILE = "Profile";
@@ -56,6 +56,7 @@ public class MainLayout extends AppLayout {
         menuBar.addThemeVariants(MenuBarVariant.LUMO_TERTIARY_INLINE);
 
         var menuItem = menuBar.addItem(avatar);
+        menuItem.addClassName("menu-item");
         var subMenu = menuItem.getSubMenu();
         subMenu.addItem(PROFILE);
         subMenu.addItem(SETTINGS);
@@ -79,7 +80,7 @@ public class MainLayout extends AppLayout {
         nav = new SideNav();
         nav.addItem(new SideNavItem(ORGANIZATION_LABEL, OrganizationView.class, LineAwesomeIcon.PENCIL_RULER_SOLID.create()));
         nav.addItem(new SideNavItem(CLIENTS_LABEL, ClientsView.class, LineAwesomeIcon.BUSINESS_TIME_SOLID.create()));
-        nav.addItem(new SideNavItem(EMPLOYEES_LABEL, EmployeesView.class, LineAwesomeIcon.PEOPLE_CARRY_SOLID.create()));
+        nav.addItem(new SideNavItem(INVOICING_TOOL_LABEL, InvoicingToolView.class, LineAwesomeIcon.TOOLS_SOLID.create()));
         nav.addItem(new SideNavItem(FINANCE_LABEL, FinanceView.class, LineAwesomeIcon.EURO_SIGN_SOLID.create()));
         return nav;
     }

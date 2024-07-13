@@ -71,7 +71,8 @@ public class ClientsView extends Composite<VerticalLayout> {
 
     public void configureClientsGrid() {
         clientsGrid.addClassNames("clients-grid");
-        clientsGrid.setSizeFull();
+        clientsGrid.setWidthFull();
+        clientsGrid.setAllRowsVisible(true);
         clientsGrid.setColumns(VAT_NUMBER, NAME, INTERMEDIARY, CONTACT_EMAIL_ADDRESS);
         clientsGrid.addComponentColumn(clientInfo -> createStatusIcon(
                 clientInfo.getStatus())).setHeader(STATUS);

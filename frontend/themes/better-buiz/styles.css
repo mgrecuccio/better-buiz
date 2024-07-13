@@ -1,5 +1,5 @@
 @import url('./main-layout.css');
 @import url('./views/organization-view.css');
 @import url('./views/clients-view.css');
-@import url('./views/employees-view.css');
+@import url('views/invoicing-tool-view.css');
 @import url('./views/finance-view.css');

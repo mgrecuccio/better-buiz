@@ -33,3 +33,7 @@ footer.layout {
     width: 100%;
     font-size: var(--lumo-font-size-xs);
 }
+
+.menu-item {
+    margin-right: 10px;
+}
