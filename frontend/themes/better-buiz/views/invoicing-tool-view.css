@@ -164,3 +164,29 @@
   min-width: 64px;
   min-height: 32px;
 }
+
+.invoicing-tool-view .organization-form-layout {
+  margin-left: 15px;
+}
+
+.invoicing-tool-view .client-form-layout {
+  margin-top: 30px;
+}
+
+.invoicing-tool-view .organization-form {
+  width: 300px;
+}
+
+.invoicing-tool-view .client-form {
+  width: 300px;
+}
+
+.invoicing-tool-view .form-label {
+  margin-bottom: -10px;
+  font-style: italic;
+  font-size: small;
+}
+
+.invoicing-tool-view .invoice-info-layout {
+  width: 150px;
+}

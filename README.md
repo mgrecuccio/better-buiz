@@ -30,7 +30,7 @@ Once the JAR file is built, you can run it using
 - `views` package in `src/main/java` contains the server-side Java views of your application. There are 4 views:
   - Organization: it's the entry point views and contains a global overview of the company;
   - Clients: it contains a view on the company clients;
-  - Employees: it contains a view on the company employees;
+  - InvoicingTool: it contains a view to create invoices;
   - Finance: describes the financial situation of the company;
 - `views` folder in `src/main/frontend` contains the client-side JavaScript views of your application.
 - `themes` folder in `src/main/frontend` contains the custom CSS styles.

@@ -26,6 +26,7 @@ public class InvoiceEntryView extends VerticalLayout {
     private Optional<InvoiceEntry> currentItem = Optional.empty();
 
     public InvoiceEntryView() {
+        setWidth("90%");
         this.grid = new Grid<>(InvoiceEntry.class, false);
         grid.addThemeVariants(GridVariant.LUMO_COLUMN_BORDERS, GridVariant.LUMO_COMPACT);
         grid.setAllRowsVisible(true);
