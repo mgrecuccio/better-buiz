@@ -1,11 +1,16 @@
 package eu.mgrtech.better.buiz.views.invoicing;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import org.vaadin.lineawesome.LineAwesomeIcon;
 
 import com.vaadin.flow.component.Focusable;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridVariant;
+import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.icon.SvgIcon;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextField;
@@ -15,6 +20,7 @@ import eu.mgrtech.better.buiz.entities.InvoiceEntry;
 
 public class InvoiceEntryView extends VerticalLayout {
 
+    private List<InvoiceEntry> entries = new ArrayList<>();
     final Grid<InvoiceEntry> grid;
     private Optional<Grid.Column<InvoiceEntry>> currentColumn = Optional.empty();
     private Optional<InvoiceEntry> currentItem = Optional.empty();
@@ -53,7 +59,9 @@ public class InvoiceEntryView extends VerticalLayout {
         binder.forField(amountField).bind("amount");
         grid.addColumn("amount").setAutoWidth(true);
 
-        grid.setItems(List.of(new InvoiceEntry()));
+        addInvoiceEntry();
+
+        grid.setItems(entries);
         // <4>
         grid.addSelectionListener(event -> event.getFirstSelectedItem().ifPresent(samplePerson -> {
             editor.save();
@@ -70,7 +78,33 @@ public class InvoiceEntryView extends VerticalLayout {
             currentItem = event.getItem();
             currentColumn = event.getColumn();
         });
-        add(grid);
+        add(addRow(), grid);
     }
 
+    private Span addRow() {
+        Span span = new Span();
+        span.getStyle().set("margin-left", "10px");
+        SvgIcon icon = LineAwesomeIcon.PLUS_CIRCLE_SOLID.create();
+        icon.setTooltipText("Add invoice entry");
+        icon.addClickListener(iconClickEvent -> addInvoiceEntry());
+        icon.getStyle().set("margin-right", "5px");
+
+        SvgIcon deleteIcon = LineAwesomeIcon.MINUS_CIRCLE_SOLID.create();
+        deleteIcon.addClickListener(deleteClick -> deleteInvoiceEntry());
+        deleteIcon.setTooltipText("Delete invoice entry");
+
+        span.add(icon, deleteIcon);
+        return span;
+    }
+
+    private void deleteInvoiceEntry() {
+        InvoiceEntry toBeDeleted = entries.get(0);
+        entries.remove(toBeDeleted);
+        grid.setItems(entries);
+    }
+
+    private void addInvoiceEntry() {
+        entries.add(new InvoiceEntry());
+        grid.setItems(entries);
+    }
 }
