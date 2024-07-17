@@ -1,4 +1,4 @@
-package eu.mgrtech.better.buiz.views.invoicing;
+package eu.mgrtech.better.buiz.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 public class InvoiceEntry {
 
     private String description;
-    private String occurrence;
+    private double unit;
+    private double unitPrice;
+    private double amount;
 
 }

@@ -74,8 +74,9 @@ public class TransactionsList extends VerticalLayout {
 
     private void configureTransactionGrid() {
         transactionsGrid.addClassNames("transactions-grid");
+        transactionsGrid.setAllRowsVisible(true);
         transactionsGrid.addThemeVariants(GridVariant.LUMO_ROW_STRIPES);
-        transactionsGrid.setSizeFull();
+        transactionsGrid.setWidthFull();
         transactionsGrid.setColumns(ID, DESCRIPTION, AMOUNT, CREATION_DATE);
         transactionsGrid.addComponentColumn(transaction -> createTypeIcon(transaction.getType())).setHeader(TYPE);
         transactionsGrid.getColumns().forEach(col -> col.setAutoWidth(true));

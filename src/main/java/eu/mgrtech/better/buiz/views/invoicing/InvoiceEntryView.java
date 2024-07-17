@@ -1,12 +1,17 @@
 package eu.mgrtech.better.buiz.views.invoicing;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.vaadin.flow.component.Focusable;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
+
+import eu.mgrtech.better.buiz.entities.InvoiceEntry;
 
 public class InvoiceEntryView extends VerticalLayout {
 
@@ -16,6 +21,8 @@ public class InvoiceEntryView extends VerticalLayout {
 
     public InvoiceEntryView() {
         this.grid = new Grid<>(InvoiceEntry.class, false);
+        grid.addThemeVariants(GridVariant.LUMO_COLUMN_BORDERS, GridVariant.LUMO_COMPACT);
+        grid.setAllRowsVisible(true);
         var binder = new BeanValidationBinder<>(InvoiceEntry.class); // <1>
         // <2>
         var editor = grid.getEditor();
@@ -30,12 +37,23 @@ public class InvoiceEntryView extends VerticalLayout {
         binder.forField(descriptionField).bind("description");
         grid.addColumn("description").setEditorComponent(descriptionField).setAutoWidth(true);
 
-        var txtOccurrence = new TextField();
-        txtOccurrence.setWidthFull();
-        binder.forField(txtOccurrence).bind("occurrence");
-        grid.addColumn("occurrence").setEditorComponent(txtOccurrence).setAutoWidth(true);
+        var unitField = new NumberField();
+        unitField.setWidthFull();
+        binder.forField(unitField).bind("unit");
+        grid.addColumn("unit").setEditorComponent(unitField).setAutoWidth(true);
 
-        grid.setItems(new InvoiceEntry("description", "4"));
+        var unitPriceField = new NumberField();
+        unitPriceField.setWidthFull();
+        binder.forField(unitPriceField).bind("unitPrice");
+        grid.addColumn("unitPrice").setEditorComponent(unitPriceField).setAutoWidth(true);
+
+        var amountField = new NumberField();
+        amountField.setWidthFull();
+        amountField.setReadOnly(true);
+        binder.forField(amountField).bind("amount");
+        grid.addColumn("amount").setAutoWidth(true);
+
+        grid.setItems(List.of(new InvoiceEntry()));
         // <4>
         grid.addSelectionListener(event -> event.getFirstSelectedItem().ifPresent(samplePerson -> {
             editor.save();
