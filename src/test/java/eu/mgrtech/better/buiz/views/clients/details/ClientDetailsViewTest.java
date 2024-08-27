@@ -23,15 +23,19 @@ class ClientDetailsViewTest {
     public void theStructureIsCorrectTest() {
         TabSheet tabSheet = clientDetailsView.tabSheet;
         Tab contractTab = tabSheet.getTabAt(0);
-        Tab projectTab = tabSheet.getTabAt(1);
+        Tab invoiceTab = tabSheet.getTabAt(1);
+        Tab projectTab = tabSheet.getTabAt(2);
 
         assertNotNull(contractTab);
+        assertNotNull(invoiceTab);
         assertNotNull(projectTab);
 
         assertTrue(contractTab.isSelected());
+        assertFalse(invoiceTab.isSelected());
         assertFalse(projectTab.isSelected());
 
         assertEquals("Contracts", contractTab.getLabel());
+        assertEquals("Invoices", invoiceTab.getLabel());
         assertEquals("Projects", projectTab.getLabel());
     }
 

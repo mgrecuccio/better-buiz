@@ -1,13 +1,14 @@
 package eu.mgrtech.better.buiz.services;
 
-import eu.mgrtech.better.buiz.entities.Client;
-import eu.mgrtech.better.buiz.entities.ClientStatus;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Service;
+
+import eu.mgrtech.better.buiz.entities.Client;
+import eu.mgrtech.better.buiz.entities.ClientStatus;
 
 @Service
 public class ClientService {
@@ -15,7 +16,7 @@ public class ClientService {
     private List<Client> clients = new ArrayList<>();
 
     public ClientService() {
-        this.clients.add(new Client(
+        clients.add(new Client(
                 UUID.randomUUID(),
                 "BE1123455",
                 "Mutual It",
@@ -23,7 +24,7 @@ public class ClientService {
                 "Marc Doe",
                 "marc.doe@email.com"));
 
-        this.clients.add(new Client(
+        clients.add(new Client(
                 UUID.randomUUID(),
                 "BE9923466",
                 "AXA",
@@ -31,7 +32,7 @@ public class ClientService {
                 "Jimmy Foh",
                 "jimmy.foh@email.com"));
 
-        this.clients.add(new Client(
+        clients.add(new Client(
                 UUID.randomUUID(),
                 "BE6545640",
                 "BNP Paribas",
@@ -39,7 +40,7 @@ public class ClientService {
                 "Elise Loy",
                 "elise.loy@email.com"));
 
-        this.clients.add(new Client(
+        clients.add(new Client(
                 UUID.randomUUID(),
                 "BE3412631",
                 "Meddition",
@@ -47,7 +48,7 @@ public class ClientService {
                 "Loris Backer",
                 "loris.backer@email.com"));
 
-        this.clients.add(new Client(
+        clients.add(new Client(
                 UUID.randomUUID(),
                 "BE4521631",
                 "Arhs",
@@ -77,6 +78,6 @@ public class ClientService {
 
     public void saveClient(Client client) {
         client.setId(UUID.randomUUID());
-        this.clients.add(client);
+        clients.add(client);
     }
 }

@@ -16,7 +16,7 @@ public class OrganizationService {
                 "MGRTECH",
                 "19-01-2024",
                 "Rue Servandoni, 45 - 1130 Haren",
-                "Limited liability company.",
+                "Limited liability company",
                 "ACTIVE",
                 "test@gmail.com",
                 "Marco Grecuccio"

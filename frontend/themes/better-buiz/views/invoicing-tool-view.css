@@ -1,4 +1,4 @@
-.employees-view {
+.invoicing-tool-view {
   padding: 2px;
   box-sizing: border-box;
   display: block;
@@ -20,51 +20,51 @@
   --cv-checkerboard-size: 16px;
 }
 
-.employees-view[dragging] {
+.invoicing-tool-view[dragging] {
   --cv-checkerboard-color1: hsl(var(--cv-blue) / 0.2);
   --cv-checkerboard-color2: hsl(var(--cv-blue) / 0.1);
   --cv-layout-border-color: var(--cv-dropzone-border-color);
 }
 
-.employees-view .preview-container {
+.invoicing-tool-view .preview-container {
   display: contents;
 }
 
 /* The root layout is not necessarily inside a flex box so width/height needs to be used */
-.employees-view .preview-container > .layout[style*='align-self: stretch'] {
+.invoicing-tool-view .preview-container > .layout[style*='align-self: stretch'] {
   width: 100%;
 }
-.employees-view .preview-container > .layout[style*='flex-grow: 1'] {
+.invoicing-tool-view .preview-container > .layout[style*='flex-grow: 1'] {
   height: 100%;
 }
 
 /* Apply some default gap and padding to layouts that don't have inline styles for them while dragging. */
-.employees-view[dragging] .layout:not([style*='gap:']) {
+.invoicing-tool-view[dragging] .layout:not([style*='gap:']) {
   gap: 8px;
 }
 
-.employees-view[dragging] .layout:not([style*='padding:'], [empty]) {
+.invoicing-tool-view[dragging] .layout:not([style*='padding:'], [empty]) {
   padding: 8px;
 }
 
-.employees-view .cover-overlay {
+.invoicing-tool-view .cover-overlay {
   position: absolute;
   border-radius: 1px;
 }
 
-.employees-view:not([starting-drag]) .cover-overlay.editable-hovering {
+.invoicing-tool-view:not([starting-drag]) .cover-overlay.editable-hovering {
   outline: 2px solid hsl(var(--cv-blue) / 1);
   outline-offset: -1px;
 }
 
-.employees-view:not([starting-drag]) .cover-overlay.editable-editing {
+.invoicing-tool-view:not([starting-drag]) .cover-overlay.editable-editing {
   outline: 1px solid hsl(var(--cv-blue) / 1);
   outline-offset: -1px;
   box-shadow: inset 0 0 0 2px var(--lumo-base-color);
 }
 
-.employees-view .overlays,
-.employees-view .drop-zones {
+.invoicing-tool-view .overlays,
+.invoicing-tool-view .drop-zones {
   position: absolute;
   top: 0;
   left: 0;
@@ -73,11 +73,11 @@
   z-index: 1;
 }
 
-.employees-view:not([dragging]) .drop-zones {
+.invoicing-tool-view:not([dragging]) .drop-zones {
   pointer-events: none;
 }
 
-.employees-view .drop-zone {
+.invoicing-tool-view .drop-zone {
   position: absolute;
   box-sizing: border-box;
   border-radius: 1px;
@@ -85,13 +85,13 @@
   min-width: 10px;
 }
 
-.employees-view[dragging] .drop-zone:not([empty-layout]) {
+.invoicing-tool-view[dragging] .drop-zone:not([empty-layout]) {
   outline: 1px dashed var(--cv-dropzone-border-color);
   outline-offset: -2px;
   background-color: var(--cv-dropzone-bg-color);
 }
 
-.employees-view .drop-zone[remaining-space] {
+.invoicing-tool-view .drop-zone[remaining-space] {
   background: repeating-linear-gradient(
     -45deg,
     var(--cv-stripe-color),
@@ -101,7 +101,7 @@
   );
 }
 
-.employees-view[dragging] .drop-zone[drag-over] {
+.invoicing-tool-view[dragging] .drop-zone[drag-over] {
   background: var(--cv-droptarget-bg-color);
   outline: 1px solid var(--cv-droptarget-border-color);
   outline-offset: -1px;
@@ -112,7 +112,7 @@
   z-index: -1;
 }
 
-.employees-view:not([readonly]) .layout[empty],vaadin-form-layout[empty] {
+.invoicing-tool-view:not([readonly]) .layout[empty],vaadin-form-layout[empty] {
   border-radius: 1px;
   background: repeating-conic-gradient(var(--cv-checkerboard-color1) 0% 25%, var(--cv-checkerboard-color2) 0% 50%) 50% /
     var(--cv-checkerboard-size) var(--cv-checkerboard-size);
@@ -120,47 +120,93 @@
   outline: 1px dashed var(--cv-layout-border-color);
   outline-offset: -2px;
 }
-.employees-view[dragging]:not([readonly]) vaadin-form-layout[empty]{
+.invoicing-tool-view[dragging]:not([readonly]) vaadin-form-layout[empty]{
   background: transparent;
 }
 
 
-.employees-view .layout[empty]::before {
+.invoicing-tool-view .layout[empty]::before {
   content: '';
   display: block;
   min-width: 64px;
   min-height: 32px;
 }
 
-.employees-view[readonly] .drop-zones,
-.employees-view[readonly] .overlays {
+.invoicing-tool-view[readonly] .drop-zones,
+.invoicing-tool-view[readonly] .overlays {
   display: none;
 }
 
-.employees-view[inline-editing] .drop-zones,
-.employees-view[inline-editing] .overlays {
+.invoicing-tool-view[inline-editing] .drop-zones,
+.invoicing-tool-view[inline-editing] .overlays {
   display: none;
 }
-.employees-view .content-wrapper[contenteditable='true']{
+.invoicing-tool-view .content-wrapper[contenteditable='true']{
   display: inline-block;
   overflow: hidden;
   width: 100%;
 }
 
 
-.employees-view[dragging] vaadin-form-layout {
+.invoicing-tool-view[dragging] vaadin-form-layout {
   padding: 8px;
 }
-.employees-view vaadin-form-layout[empty]::before {
+.invoicing-tool-view vaadin-form-layout[empty]::before {
   content: '';
   display: block;
   min-width: 64px;
   min-height: 32px;
 }
 
-.employees-view[dragging] vaadin-form-layout:not([empty])::after {
+.invoicing-tool-view[dragging] vaadin-form-layout:not([empty])::after {
   content: '';
   display: block;
   min-width: 64px;
   min-height: 32px;
+}
+
+.invoicing-tool-view .organization-form {
+  width: 300px;
+}
+
+.invoicing-tool-view .client-form {
+  width: 300px;
+}
+
+.invoicing-tool-view .invoice-header .form-label {
+  margin-bottom: -10px;
+  font-style: italic;
+  font-size: small;
+}
+
+.invoicing-tool-view .invoice-info-layout .form-label {
+  margin-bottom: -10px;
+  font-style: italic;
+  font-size: small;
+}
+
+.invoicing-tool-view .buttons-layout {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.invoicing-tool-view .invoice-entry-layout .add-remove-entry-span {
+    margin-left: 10px;
+}
+
+.invoicing-tool-view .invoice-entry-layout .add-remove-entry-span .add-entry-icon {
+    margin-right: 5px;
+}
+
+.invoicing-tool-view .amount-layout {
+  width: 6em;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+}
+
+.invoicing-tool-view .amount-layout .amount-with-vat-field {
+  font-size: var(--lumo-font-size-xxl);
+  --vaadin-input-field-readonly-border: 0px;
 }

@@ -17,7 +17,6 @@ import eu.mgrtech.better.buiz.entities.Project;
 import eu.mgrtech.better.buiz.events.project.AddProjectEvent;
 import org.springframework.stereotype.Component;
 
-@Component
 public class AddProjectDialog extends Dialog {
 
     private static final String CANCEL_BTN_LABEL = "Cancel";

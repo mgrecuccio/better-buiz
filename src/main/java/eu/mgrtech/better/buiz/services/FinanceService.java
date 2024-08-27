@@ -2,7 +2,9 @@ package eu.mgrtech.better.buiz.services;
 
 import java.text.NumberFormat;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
@@ -16,20 +18,7 @@ import eu.mgrtech.better.buiz.entities.Transaction;
 @Service
 public class FinanceService {
 
-    private final static List<String> months = List.of("January",
-                                                       "February",
-                                                       "March",
-                                                       "April",
-                                                       "May",
-                                                       "June",
-                                                       "July",
-                                                       "August",
-                                                       "September",
-                                                       "October",
-                                                       "November",
-                                                       "December"
-    );
-
+    private List<String> months = Arrays.stream(Month.values()).map(String::valueOf).toList();
     private final NumberFormat euCurrencyFormat = NumberFormat.getCurrencyInstance(Locale.FRANCE);
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
@@ -39,6 +28,7 @@ public class FinanceService {
     private final FinancialData financialData2022;
 
     public FinanceService() {
+
         financialData2024 = new FinancialData(months.stream().limit(6).toList(),
                                               List.of(12985.65d, 10000.00d, 9857.45d, 7858.44d, 9658.32d, 5698.37d),
                                               List.of(10985.65d, 8650.24d, 5654.12d, 7854.17d, 4258.32d, 3241.02d)
