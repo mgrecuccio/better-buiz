@@ -3,6 +3,7 @@ package eu.mgrtech.better.buiz.views;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.avatar.Avatar;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.menubar.MenuBarVariant;
@@ -11,6 +12,8 @@ import com.vaadin.flow.component.sidenav.SideNav;
 import com.vaadin.flow.component.sidenav.SideNavItem;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.theme.lumo.LumoUtility;
+
+import eu.mgrtech.better.buiz.services.SecurityService;
 import eu.mgrtech.better.buiz.views.clients.ClientsView;
 import eu.mgrtech.better.buiz.views.invoicing.InvoicingToolView;
 import eu.mgrtech.better.buiz.views.finance.FinanceView;
@@ -31,8 +34,10 @@ public class MainLayout extends AppLayout {
     private static final String PROFILE = "Profile";
     private static final String SETTINGS = "Settings";
     private static final String HELP = "Help";
-    private static final String SIGN_OUT = "Sign out";
+    private static final Span SIGN_OUT = new Span("Sign out");
     private static final String USER_AVATAR = "UserAvatar";
+
+    private final SecurityService securityService;
 
     H1 viewTitle;
     Avatar avatar = new Avatar(USER_AVATAR);
@@ -40,7 +45,8 @@ public class MainLayout extends AppLayout {
     Paragraph footerContent = new Paragraph();
     SideNav nav;
 
-    public MainLayout() {
+    public MainLayout(SecurityService securityService) {
+        this.securityService = securityService;
         setPrimarySection(Section.DRAWER);
         addDrawerContent();
         addHeaderContent();
@@ -54,6 +60,7 @@ public class MainLayout extends AppLayout {
         viewTitle.addClassNames("main-view-title", LumoUtility.FontSize.LARGE, LumoUtility.Margin.NONE);
 
         menuBar.addThemeVariants(MenuBarVariant.LUMO_TERTIARY_INLINE);
+        SIGN_OUT.addClickListener(e -> securityService.logout());
 
         var menuItem = menuBar.addItem(avatar);
         menuItem.addClassName("menu-item");
@@ -69,8 +76,8 @@ public class MainLayout extends AppLayout {
     private void addDrawerContent() {
         var appName = new Span(APP_NAME);
         appName.addClassNames(LumoUtility.FontWeight.SEMIBOLD, LumoUtility.FontSize.LARGE);
-        var header = new Header(appName);
 
+        var header = new Header(appName);
         var scroller = new Scroller(createNavigation());
 
         addToDrawer(header, scroller, createFooter());

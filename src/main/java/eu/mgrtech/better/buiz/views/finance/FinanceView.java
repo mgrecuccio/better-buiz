@@ -16,9 +16,11 @@ import com.vaadin.flow.router.Route;
 import eu.mgrtech.better.buiz.entities.FinanceSummary;
 import eu.mgrtech.better.buiz.services.FinanceService;
 import eu.mgrtech.better.buiz.views.MainLayout;
+import jakarta.annotation.security.PermitAll;
 
 @PageTitle("Finance")
 @Route(value = "finances", layout = MainLayout.class)
+@PermitAll
 public class FinanceView extends Composite<VerticalLayout> {
 
     private final String orgId = "id-1";

@@ -12,10 +12,12 @@ import com.vaadin.flow.router.RouteAlias;
 import com.vaadin.flow.theme.lumo.LumoUtility.Gap;
 import eu.mgrtech.better.buiz.services.OrganizationService;
 import eu.mgrtech.better.buiz.views.MainLayout;
+import jakarta.annotation.security.PermitAll;
 
 @PageTitle("Organization")
 @Route(value = "", layout = MainLayout.class)
 @RouteAlias(value = "", layout = MainLayout.class)
+@PermitAll
 public class OrganizationView extends Composite<VerticalLayout> {
 
     private static final String FORM_NAME = "Company Details";
