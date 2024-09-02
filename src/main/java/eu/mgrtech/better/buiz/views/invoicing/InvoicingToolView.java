@@ -10,9 +10,11 @@ import eu.mgrtech.better.buiz.views.invoicing.layout.ActionsButtonLayout;
 import eu.mgrtech.better.buiz.views.invoicing.layout.InvoiceEntryLayout;
 import eu.mgrtech.better.buiz.views.invoicing.layout.InvoiceHeaderLayout;
 import eu.mgrtech.better.buiz.views.invoicing.layout.InvoiceInfoLayout;
+import jakarta.annotation.security.PermitAll;
 
 @PageTitle("Invoicing Tool")
 @Route(value = "invoicing-tool", layout = MainLayout.class)
+@PermitAll
 public class InvoicingToolView extends Composite<VerticalLayout> {
 
     private final InvoiceHeaderLayout invoiceHeaderLayout = new InvoiceHeaderLayout();

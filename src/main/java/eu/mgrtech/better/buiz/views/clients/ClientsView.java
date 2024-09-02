@@ -18,9 +18,11 @@ import eu.mgrtech.better.buiz.events.client.SaveOrUpdateClientEvent;
 import eu.mgrtech.better.buiz.services.ClientService;
 import eu.mgrtech.better.buiz.views.MainLayout;
 import eu.mgrtech.better.buiz.views.clients.details.ClientDetailsView;
+import jakarta.annotation.security.PermitAll;
 
 @PageTitle("Clients")
 @Route(value = "clients", layout = MainLayout.class)
+@PermitAll
 public class ClientsView extends Composite<VerticalLayout> {
 
     private static final String VAT_NUMBER = "vatNumber";
