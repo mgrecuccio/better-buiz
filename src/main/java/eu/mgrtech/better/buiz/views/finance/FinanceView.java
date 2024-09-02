@@ -18,7 +18,7 @@ import eu.mgrtech.better.buiz.services.FinanceService;
 import eu.mgrtech.better.buiz.views.MainLayout;
 import jakarta.annotation.security.PermitAll;
 
-@PageTitle("Finance")
+@PageTitle("Finance | Better Buiz")
 @Route(value = "finances", layout = MainLayout.class)
 @PermitAll
 public class FinanceView extends Composite<VerticalLayout> {
