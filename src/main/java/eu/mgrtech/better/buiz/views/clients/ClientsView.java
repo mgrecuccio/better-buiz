@@ -20,7 +20,7 @@ import eu.mgrtech.better.buiz.views.MainLayout;
 import eu.mgrtech.better.buiz.views.clients.details.ClientDetailsView;
 import jakarta.annotation.security.PermitAll;
 
-@PageTitle("Clients")
+@PageTitle("Clients | Better Buiz")
 @Route(value = "clients", layout = MainLayout.class)
 @PermitAll
 public class ClientsView extends Composite<VerticalLayout> {
