@@ -14,7 +14,7 @@ import eu.mgrtech.better.buiz.services.OrganizationService;
 import eu.mgrtech.better.buiz.views.MainLayout;
 import jakarta.annotation.security.PermitAll;
 
-@PageTitle("Organization")
+@PageTitle("Organization | Better Buiz")
 @Route(value = "", layout = MainLayout.class)
 @RouteAlias(value = "", layout = MainLayout.class)
 @PermitAll

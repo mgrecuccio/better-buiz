@@ -1,7 +1,6 @@
 package eu.mgrtech.better.buiz.views.authentication;
 
-import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.login.LoginForm;
+import com.vaadin.flow.component.login.LoginOverlay;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
@@ -14,8 +13,11 @@ import com.vaadin.flow.server.auth.AnonymousAllowed;
 @AnonymousAllowed
 public class LoginView extends VerticalLayout implements BeforeEnterObserver {
 
-    private static final String APPLICATION_NAME = "Better Buiz";
-    private final LoginForm loginForm = new LoginForm();
+    private static final String APPLICATION_NAME = "BetterBuiz";
+    private static final String APPLICATION_DESCRIPTION = "Built with ♥ by MgrTech";
+
+    private final LoginOverlay loginForm = new LoginOverlay();
+    private final PasswordRecoveryDialog passwordRecoveryDialog = new PasswordRecoveryDialog();
 
     public LoginView() {
         addClassName("login-view");
@@ -24,9 +26,14 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
         setJustifyContentMode(JustifyContentMode.CENTER);
         setAlignItems(Alignment.CENTER);
 
+        loginForm.setTitle(APPLICATION_NAME);
+        loginForm.setDescription(APPLICATION_DESCRIPTION);
+        loginForm.setOpened(true);
+        loginForm.getElement().setAttribute("no-autofocus", "");
         loginForm.setAction("login");
+        loginForm.addForgotPasswordListener(e -> passwordRecoveryDialog.open());
 
-        add(new H1(APPLICATION_NAME), loginForm);
+        add(loginForm);
     }
 
     @Override
