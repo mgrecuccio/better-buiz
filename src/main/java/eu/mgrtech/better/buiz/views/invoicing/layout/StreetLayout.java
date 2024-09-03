@@ -9,8 +9,8 @@ public class StreetLayout extends HorizontalLayout {
     private static final String NUMBER = "Number";
     private static final String STREET = "Street";
 
-    private final NumberField streetNr = new NumberField();
-    private final TextField street = new TextField();
+    NumberField streetNr = new NumberField();
+    TextField street = new TextField();
 
     public StreetLayout() {
         streetNr.getStyle().set("width", "6em");

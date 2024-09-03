@@ -16,9 +16,9 @@ public class DeleteProjectDialog extends ConfirmDialog {
     private Project project;
 
     public DeleteProjectDialog(Project project) {
-        addClassName("delete-project-dialog");
         this.project = project;
 
+        addClassName("delete-project-dialog");
         setHeader(DIALOG_TITLE);
         setText(CONFIRM_PROJECT_DELETION_LABEL);
 

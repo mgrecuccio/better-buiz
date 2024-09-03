@@ -61,7 +61,7 @@ public class AddProjectDialog extends Dialog {
     }
 
     private VerticalLayout createDialogLayout() {
-        VerticalLayout fieldLayout = new VerticalLayout(company, jobTitle, jobDescription, jobType, jobAddress, startDate, endDate);
+        var fieldLayout = new VerticalLayout(company, jobTitle, jobDescription, jobType, jobAddress, startDate, endDate);
 
         fieldLayout.setSpacing(false);
         fieldLayout.setPadding(false);

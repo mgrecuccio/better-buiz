@@ -29,7 +29,7 @@ public class FinancialGraph extends SOChart {
         setWidth("80%");
         setHeight("100%");
 
-        DataMatrix dataMatrix = new DataMatrix(INCOMES);
+        var dataMatrix = new DataMatrix(INCOMES);
 
         dataMatrix.setColumnNames(financialData.getMonths().toArray(new String[0]));
         dataMatrix.setColumnDataName(INCOMES);
@@ -40,13 +40,13 @@ public class FinancialGraph extends SOChart {
         dataMatrix.addRow(financialData.getIncomes().toArray(new Double[0]));
         dataMatrix.addRow(financialData.getExpenses().toArray(new Double[0]));
 
-        XAxis xAxis = new XAxis(DataType.CATEGORY);
+        var xAxis = new XAxis(DataType.CATEGORY);
         xAxis.setName(dataMatrix.getColumnDataName());
 
-        YAxis yAxis = new YAxis(DataType.NUMBER);
+        var yAxis = new YAxis(DataType.NUMBER);
         yAxis.setName(dataMatrix.getRowDataName());
 
-        RectangularCoordinate rc = new RectangularCoordinate();
+        var rc = new RectangularCoordinate();
         rc.addAxis(xAxis, yAxis);
 
         for (int i = 0; i < dataMatrix.getRowCount(); i++) {

@@ -9,9 +9,9 @@ public class ClientForm extends FormLayout {
 
     private static final String NAME = "Name";
 
-    private final TextField name = new TextField();
-    private final AddressLayout addressLayout = new AddressLayout();
-    private final StreetLayout streetLayout = new StreetLayout();
+    TextField name = new TextField();
+    AddressLayout addressLayout = new AddressLayout();
+    StreetLayout streetLayout = new StreetLayout();
 
     public ClientForm() {
         addClassName("client-form");

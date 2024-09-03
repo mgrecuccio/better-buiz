@@ -7,7 +7,7 @@ public class ContractTab extends Div {
 
     public ContractTab() {
         addClassName("contract-tab");
-        Text text = new Text("This is the Contracts tab content");
+        var text = new Text("This is the Contracts tab content");
         add(text);
     }
 }

@@ -38,7 +38,7 @@ class OrganizationInfoFormTest {
     }
 
     @Test
-    public void formIsCorrectlyFilledTest() {
+    public void testThatTheFormIsCorrectlyFilled() {
         //Labels
         assertEquals("VAT Number", organizationInfoForm.vatNumber.getLabel());
         assertEquals("Company Name", organizationInfoForm.companyName.getLabel());
@@ -61,7 +61,7 @@ class OrganizationInfoFormTest {
     }
 
     @Test
-    public void formHasTheCorrectStructureTest() {
+    public void testThatTheFormHasTheExpectedStructure() {
         assertTrue(organizationInfoForm.vatNumber.isReadOnly());
         assertTrue(organizationInfoForm.companyName.isReadOnly());
         assertTrue(organizationInfoForm.startDate.isReadOnly());

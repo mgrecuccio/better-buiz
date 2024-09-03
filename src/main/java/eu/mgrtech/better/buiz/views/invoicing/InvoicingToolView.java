@@ -17,10 +17,10 @@ import jakarta.annotation.security.PermitAll;
 @PermitAll
 public class InvoicingToolView extends Composite<VerticalLayout> {
 
-    private final InvoiceHeaderLayout invoiceHeaderLayout = new InvoiceHeaderLayout();
-    private final InvoiceEntryLayout invoiceEntryLayout = new InvoiceEntryLayout();
-    private final ActionsButtonLayout actionsButtonLayout = new ActionsButtonLayout();
-    private final InvoiceInfoLayout invoiceInfoLayout = new InvoiceInfoLayout();
+    InvoiceHeaderLayout invoiceHeaderLayout = new InvoiceHeaderLayout();
+    InvoiceEntryLayout invoiceEntryLayout = new InvoiceEntryLayout();
+    ActionsButtonLayout actionsButtonLayout = new ActionsButtonLayout();
+    InvoiceInfoLayout invoiceInfoLayout = new InvoiceInfoLayout();
 
     public InvoicingToolView() {
         addClassName("invoicing-tool-view");

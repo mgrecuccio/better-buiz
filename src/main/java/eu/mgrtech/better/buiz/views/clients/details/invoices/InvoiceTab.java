@@ -7,7 +7,7 @@ public class InvoiceTab extends Div {
 
     public InvoiceTab() {
         addClassName("invoices-tab");
-        Text text = new Text("This is the Invoices tab content");
+        var text = new Text("This is the Invoices tab content");
         add(text);
     }
 

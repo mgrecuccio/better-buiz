@@ -23,10 +23,10 @@ public class ActionsButtonLayout extends HorizontalLayout {
     private final String CANCEL_BUTTON_LABEL = "Cancel";
     private final String SEND_BUTTON_LABEL = "Send";
 
-    private final SendEmailDialog sendEmailDialog = new SendEmailDialog();
-    private final Button sendByEmail = new Button(SEND_BY_EMAIL_LABEL);
-    private final Button generatePdf = new Button(GENERATE_PDF_LABEL);
-    private FileDownloadWrapper generatePdfWrapper;
+    SendEmailDialog sendEmailDialog = new SendEmailDialog();
+    Button sendByEmail = new Button(SEND_BY_EMAIL_LABEL);
+    Button generatePdf = new Button(GENERATE_PDF_LABEL);
+    FileDownloadWrapper generatePdfWrapper;
 
     public ActionsButtonLayout() {
         addClassName("buttons-layout");
@@ -51,7 +51,7 @@ public class ActionsButtonLayout extends HorizontalLayout {
 
     private class SendEmailDialog extends Dialog {
 
-        private final EmailField email = new EmailField();
+        EmailField email = new EmailField();
 
         public SendEmailDialog() {
             addClassName("send-email-dialog");

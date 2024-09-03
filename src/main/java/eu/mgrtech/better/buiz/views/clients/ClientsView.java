@@ -1,5 +1,8 @@
 package eu.mgrtech.better.buiz.views.clients;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
@@ -23,6 +26,8 @@ import jakarta.annotation.security.PermitAll;
 @PageTitle("Clients | Better Buiz")
 @Route(value = "clients", layout = MainLayout.class)
 @PermitAll
+@Component
+@Scope("prototype")
 public class ClientsView extends Composite<VerticalLayout> {
 
     private static final String VAT_NUMBER = "vatNumber";
@@ -40,9 +45,9 @@ public class ClientsView extends Composite<VerticalLayout> {
     Button addClientButton = new Button(ADD_CLIENT_BTN_LABEL);
 
     public ClientsView(ClientService clientService) {
-        addClassName("clients-list-view");
-
         this.clientService = clientService;
+
+        addClassName("clients-list-view");
         getContent().setSizeFull();
 
         configureClientsGrid();
@@ -61,7 +66,7 @@ public class ClientsView extends Composite<VerticalLayout> {
     }
 
     private HorizontalLayout getContentView() {
-        HorizontalLayout contentView = new HorizontalLayout();
+        var contentView = new HorizontalLayout();
         contentView.add(clientsGrid, clientForm);
         contentView.setFlexGrow(2, clientsGrid);
         contentView.setFlexGrow(1, clientForm);
@@ -88,8 +93,8 @@ public class ClientsView extends Composite<VerticalLayout> {
     }
 
     private Span createStatusIcon(ClientStatus status) {
-        Span statusSpan = new Span(status.name());
-        String badgeType = getBadgeTypeByStatus(status);
+        var statusSpan = new Span(status.name());
+        var badgeType = getBadgeTypeByStatus(status);
         statusSpan.getElement().getThemeList().add(badgeType);
         return statusSpan;
     }

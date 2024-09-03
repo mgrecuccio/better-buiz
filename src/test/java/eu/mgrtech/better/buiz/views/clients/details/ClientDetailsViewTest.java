@@ -1,11 +1,9 @@
 package eu.mgrtech.better.buiz.views.clients.details;
 
-import com.vaadin.flow.component.tabs.Tab;
-import com.vaadin.flow.component.tabs.TabSheet;
-import eu.mgrtech.better.buiz.services.ProjectService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import eu.mgrtech.better.buiz.services.ProjectService;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ClientDetailsViewTest {
@@ -21,10 +19,10 @@ class ClientDetailsViewTest {
 
     @Test
     public void theStructureIsCorrectTest() {
-        TabSheet tabSheet = clientDetailsView.tabSheet;
-        Tab contractTab = tabSheet.getTabAt(0);
-        Tab invoiceTab = tabSheet.getTabAt(1);
-        Tab projectTab = tabSheet.getTabAt(2);
+        var tabSheet = clientDetailsView.tabSheet;
+        var contractTab = tabSheet.getTabAt(0);
+        var invoiceTab = tabSheet.getTabAt(1);
+        var projectTab = tabSheet.getTabAt(2);
 
         assertNotNull(contractTab);
         assertNotNull(invoiceTab);
@@ -46,10 +44,10 @@ class ClientDetailsViewTest {
 
     @Test
     public void whenSetParameterIsCalledWithAnInvalidClientIdExceptionIsThrownTest() {
-        Exception exception = assertThrows(RuntimeException.class, () -> clientDetailsView.setParameter(null, null));
+        var exception = assertThrows(RuntimeException.class, () -> clientDetailsView.setParameter(null, null));
 
-        String expectedMessage = "Invalid client ID";
-        String actualMessage = exception.getMessage();
+        var expectedMessage = "Invalid client ID";
+        var actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
     }
 }
