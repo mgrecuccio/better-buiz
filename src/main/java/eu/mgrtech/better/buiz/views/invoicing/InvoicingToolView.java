@@ -11,10 +11,14 @@ import eu.mgrtech.better.buiz.views.invoicing.layout.InvoiceEntryLayout;
 import eu.mgrtech.better.buiz.views.invoicing.layout.InvoiceHeaderLayout;
 import eu.mgrtech.better.buiz.views.invoicing.layout.InvoiceInfoLayout;
 import jakarta.annotation.security.PermitAll;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 @PageTitle("Invoicing Tool | Better Buiz")
 @Route(value = "invoicing-tool", layout = MainLayout.class)
 @PermitAll
+@Component
+@Scope("prototype")
 public class InvoicingToolView extends Composite<VerticalLayout> {
 
     InvoiceHeaderLayout invoiceHeaderLayout = new InvoiceHeaderLayout();
@@ -24,6 +28,11 @@ public class InvoicingToolView extends Composite<VerticalLayout> {
 
     public InvoicingToolView() {
         addClassName("invoicing-tool-view");
+
+        invoiceHeaderLayout.addClassName("invoice-header");
+        invoiceEntryLayout.addClassName("invoice-entry");
+        actionsButtonLayout.addClassName("actions-button");
+        invoiceInfoLayout.addClassName("invoice-info");
 
         getContent().add(
                 invoiceHeaderLayout,

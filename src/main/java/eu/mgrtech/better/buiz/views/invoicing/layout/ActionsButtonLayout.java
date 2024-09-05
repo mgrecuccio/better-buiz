@@ -30,7 +30,7 @@ public class ActionsButtonLayout extends HorizontalLayout {
 
     public ActionsButtonLayout() {
         addClassName("buttons-layout");
-
+        sendEmailDialog.addClassName("send-email-dialog");
         configureGeneratePdfButton();
         configureSendByEmailButton();
 
@@ -38,6 +38,7 @@ public class ActionsButtonLayout extends HorizontalLayout {
     }
 
     private void configureGeneratePdfButton() {
+        generatePdf.addClassName("generate-pdf");
         generatePdf.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
         generatePdfWrapper = new FileDownloadWrapper("invoice.pdf", new File("src/main/resources/invoice.pdf"));
@@ -45,13 +46,16 @@ public class ActionsButtonLayout extends HorizontalLayout {
     }
 
     private void configureSendByEmailButton() {
+        sendByEmail.addClassName("send-by-email");
         sendByEmail.addClickListener(e -> sendEmailDialog.open());
         sendByEmail.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
     }
 
-    private class SendEmailDialog extends Dialog {
+    public class SendEmailDialog extends Dialog {
 
-        EmailField email = new EmailField();
+        public EmailField email = new EmailField();
+        public Button cancelButton = new Button(CANCEL_BUTTON_LABEL, e -> close());
+        public Button sendButton = new Button(SEND_BUTTON_LABEL, e -> sendAndNotify());
 
         public SendEmailDialog() {
             addClassName("send-email-dialog");
@@ -76,11 +80,10 @@ public class ActionsButtonLayout extends HorizontalLayout {
         }
 
         private void configureFooter() {
-            var cancelButton = new Button(CANCEL_BUTTON_LABEL, e -> close());
-            var sendButton = new Button(SEND_BUTTON_LABEL, e -> sendAndNotify());
+            cancelButton.addClassName("cancel-button");
+            sendButton.addClassName("send-button");
 
-            getFooter().add(cancelButton);
-            getFooter().add(sendButton);
+            getFooter().add(cancelButton, sendButton);
         }
 
         private void sendAndNotify() {
@@ -93,12 +96,14 @@ public class ActionsButtonLayout extends HorizontalLayout {
 
         private void showSuccessNotification() {
             var successNotification = Notification.show("Email sent to " + email.getValue());
+            successNotification.addClassName("success-notification");
             successNotification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
             successNotification.setPosition(Notification.Position.TOP_CENTER);
         }
 
         private void showFailureNotification() {
             var failureNotification = Notification.show(FAILURE_NOTIFICATION_MSG);
+            failureNotification.addClassName("failure-notification");
             failureNotification.addThemeVariants(NotificationVariant.LUMO_ERROR);
             failureNotification.setPosition(Notification.Position.TOP_CENTER);
         }

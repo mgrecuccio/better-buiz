@@ -100,11 +100,13 @@ public class ClientsView extends Composite<VerticalLayout> {
     }
 
     private HorizontalLayout getToolbar() {
+        filterClients.addClassName("filter-clients");
         filterClients.setPlaceholder("Filter...");
         filterClients.setClearButtonVisible(true);
         filterClients.setValueChangeMode(ValueChangeMode.LAZY);
         filterClients.addValueChangeListener(e -> updateList());
 
+        addClientButton.addClassName("add-client-btn");
         addClientButton.addClickListener(click -> addClient(new Client()));
 
         var toolbar = new HorizontalLayout(filterClients, addClientButton);

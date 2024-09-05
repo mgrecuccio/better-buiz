@@ -52,6 +52,7 @@ public class InvoiceEntryLayout extends VerticalLayout {
         addClassName("invoice-entry-layout");
 
         entriesGrid = new Grid<>(InvoiceEntry.class, false);
+        entriesGrid.addClassNames("entry-grid");
         entriesGrid.setItems(entries);
 
         configureGrid();
@@ -125,6 +126,7 @@ public class InvoiceEntryLayout extends VerticalLayout {
         addEntry.addClickListener(iconClickEvent -> addNewEntryEvent());
 
         var deleteEntry = LineAwesomeIcon.MINUS_CIRCLE_SOLID.create();
+        deleteEntry.addClassName("delete-entry-icon");
         deleteEntry.addClickListener(deleteClick -> deleteInvoiceEntry(entriesGrid.getSelectedItems().stream().findFirst()));
         deleteEntry.setTooltipText(DELETE_INVOICE_ENTRY_TOOLTIP);
 
@@ -132,6 +134,12 @@ public class InvoiceEntryLayout extends VerticalLayout {
     }
 
     private void addColumns() {
+        description.addClassName("description");
+        units.addClassName("units");
+        unitPrice.addClassName("unit-price");
+        vat.addClassName("vat");
+        amount.addClassName("amount");
+
         configureTextColumn(description, DESCRIPTION);
         configureNumericColumn(units, UNIT, null, false);
         configureNumericColumn(unitPrice, UNIT_PRICE, "( € )", false);

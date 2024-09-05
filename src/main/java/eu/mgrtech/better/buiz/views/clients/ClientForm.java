@@ -39,12 +39,21 @@ public class ClientForm extends FormLayout {
         addClassName("client-form");
         clientBinder.bindInstanceFields(this);
 
+        vatNumber.addClassName("vat-number");
+        name.addClassName("name");
+        intermediary.addClassName("intermediary");
+        contactEmailAddress.addClassName("intermediary-email");
+
         add(vatNumber, name, intermediary, contactEmailAddress, createButtonsLayout());
     }
 
     private HorizontalLayout createButtonsLayout() {
+        save.addClassName("save-client-btn");
         save.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+
         close.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
+        close.addClassName("close-client-form-btn");
+
         save.addClickShortcut(Key.ENTER);
         close.addClickShortcut(Key.ESCAPE);
 
