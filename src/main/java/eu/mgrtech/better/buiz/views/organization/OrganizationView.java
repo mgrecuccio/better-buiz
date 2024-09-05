@@ -1,5 +1,8 @@
 package eu.mgrtech.better.buiz.views.organization;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.H2;
@@ -10,6 +13,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 import com.vaadin.flow.theme.lumo.LumoUtility.Gap;
+
 import eu.mgrtech.better.buiz.services.OrganizationService;
 import eu.mgrtech.better.buiz.views.MainLayout;
 import jakarta.annotation.security.PermitAll;
@@ -18,6 +22,8 @@ import jakarta.annotation.security.PermitAll;
 @Route(value = "", layout = MainLayout.class)
 @RouteAlias(value = "", layout = MainLayout.class)
 @PermitAll
+@Component
+@Scope("prototype")
 public class OrganizationView extends Composite<VerticalLayout> {
 
     private static final String FORM_NAME = "Company Details";
@@ -33,27 +39,28 @@ public class OrganizationView extends Composite<VerticalLayout> {
     public OrganizationView(OrganizationService organizationService) {
         this.organizationService = organizationService;
 
-        getContent().addClassName("view-content");
-        getContent().setWidth("100%");
-        getContent().getStyle().set("flex-grow", "1");
+        addClassName("organization-view");
+        getContent().addClassName("content");
+        viewTitle.addClassName("view-title");
 
         configureOrganizationForm();
         configureInfoBox();
+
         getContent().add(viewTitle, organizationInfoForm, infoBox);
     }
 
     public void configureOrganizationForm() {
         organizationInfoForm = new OrganizationInfoForm(organizationService.getOrganizationInfoByVatNumber("BE1004927621"));
+        organizationInfoForm.addClassName("info-form");
         organizationInfoForm.setResponsiveSteps(
                 new FormLayout.ResponsiveStep("0", 1),
                 new FormLayout.ResponsiveStep("500px", 2));
     }
 
     public void configureInfoBox() {
+        infoBoxContent.addClassName("info-box-content");
         infoBox.addClassName("info-box");
         infoBox.addClassName(Gap.MEDIUM);
-
-        infoBoxContent.addClassName("info-box-content");
         infoBox.add(infoBoxContent);
     }
 }

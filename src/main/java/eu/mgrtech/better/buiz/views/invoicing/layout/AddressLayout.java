@@ -8,8 +8,8 @@ public class AddressLayout extends HorizontalLayout {
     private static final String CITY = "City";
     private static final String ZIP_CODE = "Zip code";
 
-    private final TextField zipCode = new TextField();
-    private final TextField city = new TextField();
+    TextField zipCode = new TextField();
+    TextField city = new TextField();
 
     public AddressLayout() {
         zipCode.setMinLength(4);

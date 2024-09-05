@@ -31,54 +31,54 @@ class TransactionsListTest {
     }
 
     @Test
-    public void theToolBarWithTheFilterButtonIsShownTest() {
-        HorizontalLayout toolbar = transactionsList.toolbar;
+    public void testThatTheToolBarIsVisibleAndTheFilterButtonIsShown() {
+        var toolbar = transactionsList.toolbar;
 
         assertNotNull(toolbar);
         assertTrue(toolbar.isVisible());
 
-        Component toolbarComponentAt = toolbar.getComponentAt(0);
+        var toolbarComponentAt = toolbar.getComponentAt(0);
         assertTrue(toolbarComponentAt instanceof TextField);
 
-        TextField filterTransactions = (TextField) toolbarComponentAt;
+        var filterTransactions = (TextField) toolbarComponentAt;
         assertTrue(filterTransactions.isVisible());
         assertEquals("Search latest transactions...", filterTransactions.getPlaceholder());
     }
 
     @Test
-    public void theTransactionGridIsPopulatedTest() {
-        Grid<Transaction> transactionsGrid = transactionsList.transactionsGrid;
+    public void testThatTheTransactionGridIsPopulated() {
+        var transactionsGrid = transactionsList.transactionsGrid;
         assertTrue(transactionsGrid.isVisible());
 
-        List<Grid.Column<Transaction>> columns = transactionsGrid.getColumns();
+        var columns = transactionsGrid.getColumns();
         assertEquals(5, columns.size());
 
-        Grid.Column<Transaction> id = columns.get(0);
+        var id = columns.get(0);
         assertEquals("id", id.getKey());
 
-        Grid.Column<Transaction> description = columns.get(1);
+        var description = columns.get(1);
         assertEquals("description", description.getKey());
 
-        Grid.Column<Transaction> amount = columns.get(2);
+        var amount = columns.get(2);
         assertEquals("amount", amount.getKey());
 
-        Grid.Column<Transaction> intermediaryEMail = columns.get(3);
+        var intermediaryEMail = columns.get(3);
         assertEquals("creationDate", intermediaryEMail.getKey());
 
-        Grid.Column<Transaction> creationDate = columns.get(4);
+        var creationDate = columns.get(4);
         assertEquals("Type", creationDate.getHeaderText());
 
-        int shownTransactions = transactionsGrid.getGenericDataView().getItems().toList().size();
+        var shownTransactions = transactionsGrid.getGenericDataView().getItems().toList().size();
         assertEquals(transactions.size(), shownTransactions);
     }
 
     @Test
-    public void theGridIsUpdatedWhenTheFilterIsChangedTest() {
-        TextField filterTransactions = transactionsList.filterTransactions;
+    public void testThatTheGridIsUpdatedWhenTheFilterChanges() {
+        var filterTransactions = transactionsList.filterTransactions;
         filterTransactions.setValue("A wrong value");
 
-        Grid<Transaction> transactionsGrid = transactionsList.transactionsGrid;
-        List<Transaction> shownTransactions = transactionsGrid.getGenericDataView().getItems().toList();
+        var transactionsGrid = transactionsList.transactionsGrid;
+        var shownTransactions = transactionsGrid.getGenericDataView().getItems().toList();
         assertEquals(0, shownTransactions.size());
 
         filterTransactions.setValue("First");
@@ -96,5 +96,4 @@ class TransactionsListTest {
         assertEquals(2, shownTransactions.size());
         assertEquals(transactions, shownTransactions);
     }
-
 }

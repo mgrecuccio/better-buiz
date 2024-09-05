@@ -8,9 +8,10 @@ import com.vaadin.flow.component.textfield.NumberField;
 
 public class AmountLayout extends VerticalLayout {
 
-    private final FormLayout amountForm = new FormLayout();
-    private final NumberField totalAmount = new NumberField();
     private Div euroPrefix = new Div();
+
+    FormLayout amountForm = new FormLayout();
+    NumberField totalAmount = new NumberField();
 
     public AmountLayout() {
         addClassName("amount-layout");

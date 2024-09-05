@@ -13,11 +13,11 @@ public class OrganizationForm extends FormLayout {
     private static final String VAT_PREFIX = "BE";
     private static final String BCE_NUMBER = "BCE number";
 
-    private final TextField name = new TextField();
-    private final TextField vatNumber = new TextField();
-    private final TextField bceNumber = new TextField();
-    private final AddressLayout addressLayout = new AddressLayout();
-    private final StreetLayout streetLayout = new StreetLayout();
+    TextField name = new TextField();
+    TextField vatNumber = new TextField();
+    TextField bceNumber = new TextField();
+    AddressLayout addressLayout = new AddressLayout();
+    StreetLayout streetLayout = new StreetLayout();
 
     public OrganizationForm() {
         addClassName("organization-form");

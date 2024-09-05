@@ -13,8 +13,8 @@ public class PasswordRecoveryDialog extends ConfirmDialog {
     private final String CONFIRM_SEND_RECOVERY_PASSWORD_EMAIL = "Enter your email address below and we'll send you a link to reset your password.";
     private final String SEND_RECOVERY_PWD_BTN_LABEL = "Send link";
 
-    private final VerticalLayout contentLayout = new VerticalLayout();
-    private final EmailField recoveryEmailField = new EmailField();
+    VerticalLayout contentLayout = new VerticalLayout();
+    EmailField recoveryEmailField = new EmailField();
 
     public PasswordRecoveryDialog() {
         addClassName("password-recovery-dialog");
@@ -34,11 +34,13 @@ public class PasswordRecoveryDialog extends ConfirmDialog {
 
     private void sendLink() {
         var linkSentNotification = Notification.show("The link to recover your password has been sent.");
+        linkSentNotification.addClassName("notification-link");
         linkSentNotification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
         linkSentNotification.setPosition(Notification.Position.TOP_CENTER);
     }
 
     private void configureContentLayout() {
+        addClassName("content-layout");
         recoveryEmailField.getStyle().set("width", "80%");
         contentLayout.add(new Paragraph(CONFIRM_SEND_RECOVERY_PASSWORD_EMAIL), recoveryEmailField);
 

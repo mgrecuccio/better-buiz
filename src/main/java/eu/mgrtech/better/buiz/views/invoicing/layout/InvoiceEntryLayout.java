@@ -31,27 +31,28 @@ public class InvoiceEntryLayout extends VerticalLayout {
     private static final String DELETE_INVOICE_ENTRY_TOOLTIP = "Delete invoice entry";
 
     private List<InvoiceEntry> entries = new ArrayList<>();
-    private final Grid<InvoiceEntry> grid;
+
     private BeanValidationBinder binder = new BeanValidationBinder<>(InvoiceEntry.class);
     private Optional<Grid.Column<InvoiceEntry>> currentColumn = Optional.empty();
     private Optional<InvoiceEntry> currentItem = Optional.empty();
     private Editor<InvoiceEntry> editor;
 
-    private TextField description = new TextField();
-    private NumberField units = new NumberField();
-    private NumberField unitPrice = new NumberField();
-    private NumberField vat = new NumberField();
-    private NumberField amount = new NumberField();
-    private Span iconsManagementSection = new Span();
-    private AmountLayout amountForm = new AmountLayout();
+    Grid<InvoiceEntry> entriesGrid;
+    TextField description = new TextField();
+    NumberField units = new NumberField();
+    NumberField unitPrice = new NumberField();
+    NumberField vat = new NumberField();
+    NumberField amount = new NumberField();
+    Span iconsManagementSection = new Span();
+    AmountLayout amountForm = new AmountLayout();
 
     private boolean addingNewEntry = false;
 
     public InvoiceEntryLayout() {
         addClassName("invoice-entry-layout");
 
-        grid = new Grid<>(InvoiceEntry.class, false);
-        grid.setItems(entries);
+        entriesGrid = new Grid<>(InvoiceEntry.class, false);
+        entriesGrid.setItems(entries);
 
         configureGrid();
         configureEditor();
@@ -60,17 +61,17 @@ public class InvoiceEntryLayout extends VerticalLayout {
         addColumns();
         addInvoiceEntry();
 
-        add(iconsManagementSection, grid, amountForm);
+        add(iconsManagementSection, entriesGrid, amountForm);
     }
 
     private void configureGrid() {
-        grid.addThemeVariants(GridVariant.LUMO_NO_BORDER, GridVariant.LUMO_COMPACT);
-        grid.setSelectionMode(Grid.SelectionMode.SINGLE);
-        grid.setAllRowsVisible(true);
+        entriesGrid.addThemeVariants(GridVariant.LUMO_NO_BORDER, GridVariant.LUMO_COMPACT);
+        entriesGrid.setSelectionMode(Grid.SelectionMode.SINGLE);
+        entriesGrid.setAllRowsVisible(true);
     }
 
     private void configureEditor() {
-        editor = grid.getEditor();
+        editor = entriesGrid.getEditor();
         editor.setBinder(binder);
         editor.setBuffered(true);
 
@@ -93,14 +94,14 @@ public class InvoiceEntryLayout extends VerticalLayout {
     private void addInvoiceEntry() {
         InvoiceEntry newEntry = new InvoiceEntry();
         entries.add(newEntry);
-        grid.setItems(entries);
+        entriesGrid.setItems(entries);
     }
 
     private void configureSelectionListener() {
-        grid.addSelectionListener(event -> event.getFirstSelectedItem().ifPresent(selectedEntry -> {
+        entriesGrid.addSelectionListener(event -> event.getFirstSelectedItem().ifPresent(selectedEntry -> {
             editor.save();
             if (!editor.isOpen()) {
-                grid.getEditor().editItem(selectedEntry);
+                entriesGrid.getEditor().editItem(selectedEntry);
                 currentColumn.ifPresent(column -> {
                     if (column.getEditorComponent() instanceof Focusable<?> focusable) {
                         focusable.focus();
@@ -108,7 +109,7 @@ public class InvoiceEntryLayout extends VerticalLayout {
                 });
             }
         }));
-        grid.addCellFocusListener(event -> {
+        entriesGrid.addCellFocusListener(event -> {
             currentItem = event.getItem();
             currentColumn = event.getColumn();
         });
@@ -124,7 +125,7 @@ public class InvoiceEntryLayout extends VerticalLayout {
         addEntry.addClickListener(iconClickEvent -> addNewEntryEvent());
 
         var deleteEntry = LineAwesomeIcon.MINUS_CIRCLE_SOLID.create();
-        deleteEntry.addClickListener(deleteClick -> deleteInvoiceEntry(grid.getSelectedItems().stream().findFirst()));
+        deleteEntry.addClickListener(deleteClick -> deleteInvoiceEntry(entriesGrid.getSelectedItems().stream().findFirst()));
         deleteEntry.setTooltipText(DELETE_INVOICE_ENTRY_TOOLTIP);
 
         iconsManagementSection.add(addEntry, deleteEntry);
@@ -142,7 +143,7 @@ public class InvoiceEntryLayout extends VerticalLayout {
         field.setWidthFull();
         field.setReadOnly(readOnly);
         binder.forField(field).bind(propertyName);
-        Grid.Column<InvoiceEntry> invoiceEntryColumn = grid.addColumn(propertyName);
+        Grid.Column<InvoiceEntry> invoiceEntryColumn = entriesGrid.addColumn(propertyName);
         invoiceEntryColumn.setEditorComponent(field).setAutoWidth(true);
         if (!StringUtils.isBlank(headerSuffix)) {
             invoiceEntryColumn.setHeader(propertyName + " " + headerSuffix);
@@ -152,7 +153,7 @@ public class InvoiceEntryLayout extends VerticalLayout {
     private void configureTextColumn(TextField field, String propertyName) {
         field.setWidthFull();
         binder.forField(field).bind(propertyName);
-        grid.addColumn(propertyName).setEditorComponent(field).setAutoWidth(true);
+        entriesGrid.addColumn(propertyName).setEditorComponent(field).setAutoWidth(true);
     }
 
     private void addNewEntryEvent() {
@@ -172,7 +173,7 @@ public class InvoiceEntryLayout extends VerticalLayout {
         }
         entries.remove(entryToDelete);
         amountForm.updateAmount(getTotalAmount());
-        grid.setItems(entries);
+        entriesGrid.setItems(entries);
     }
 
     private Double getTotalAmount() {

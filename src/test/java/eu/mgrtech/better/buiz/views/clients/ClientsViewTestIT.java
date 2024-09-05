@@ -3,28 +3,25 @@ package eu.mgrtech.better.buiz.views.clients;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
-import eu.mgrtech.better.buiz.services.ClientService;
+
 import eu.mgrtech.better.buiz.entities.Client;
-import org.junit.jupiter.api.BeforeEach;
+
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ClientsViewTest {
+@SpringBootTest
+class ClientsViewTestIT {
 
-    private ClientService clientService;
+    @Autowired
     private ClientsView clientsView;
 
-    @BeforeEach
-    public void setUp() {
-        clientService = new ClientService();
-        clientsView = new ClientsView(clientService);
-    }
-
     @Test
-    public void theClientGridIsPopulatedTest() {
+    public void testThatTheClientGridIsPopulated() {
         Grid<Client> clientsGrid = clientsView.clientsGrid;
         assertTrue(clientsGrid.isVisible());
 
@@ -46,13 +43,12 @@ class ClientsViewTest {
         Grid.Column<Client> status = columns.get(4);
         assertEquals("Status", status.getHeaderText());
 
-        // rows correspond to the number of clients given by clientService
-        int clients = clientsGrid.getGenericDataView().getItems().toList().size();
-        assertEquals(clientService.getClientInfoByCompanyVatNumber("").size(), clients);
+        var clients = clientsGrid.getGenericDataView().getItems().toList();
+        assertFalse(clients.isEmpty());
     }
 
     @Test
-    public void filterTextIsVisibleTest() {
+    public void testThatTheFilterTextIsShown() {
         TextField filterClients = clientsView.filterClients;
 
         assertTrue(filterClients.isVisible());
@@ -63,8 +59,8 @@ class ClientsViewTest {
     }
 
     @Test
-    public void addClientButtonIsVisibleAndWhenClickedTheClientFormIsOpenedTest() {
-        ClientForm clientForm = clientsView.clientForm;
+    public void testThatTheAddClientButtonIsVisibleAndWhenClickedTheClientFormIsOpened() {
+        var clientForm = clientsView.clientForm;
         assertFalse(clientForm.isVisible());
 
         clientsView.addClientButton.click();

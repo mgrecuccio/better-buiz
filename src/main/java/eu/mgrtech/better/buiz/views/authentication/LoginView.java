@@ -16,15 +16,24 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
     private static final String APPLICATION_NAME = "BetterBuiz";
     private static final String APPLICATION_DESCRIPTION = "Built with ♥ by MgrTech";
 
-    private final LoginOverlay loginForm = new LoginOverlay();
-    private final PasswordRecoveryDialog passwordRecoveryDialog = new PasswordRecoveryDialog();
+    LoginOverlay loginForm = new LoginOverlay();
+    PasswordRecoveryDialog passwordRecoveryDialog = new PasswordRecoveryDialog();
 
     public LoginView() {
         addClassName("login-view");
         setSizeFull();
 
+        passwordRecoveryDialog.addClassName("password-recovery-dialog");
+
         setJustifyContentMode(JustifyContentMode.CENTER);
         setAlignItems(Alignment.CENTER);
+        configureLoginForm();
+
+        add(loginForm);
+    }
+
+    private void configureLoginForm() {
+        loginForm.addClassName("login-form");
 
         loginForm.setTitle(APPLICATION_NAME);
         loginForm.setDescription(APPLICATION_DESCRIPTION);
@@ -32,8 +41,6 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
         loginForm.getElement().setAttribute("no-autofocus", "");
         loginForm.setAction("login");
         loginForm.addForgotPasswordListener(e -> passwordRecoveryDialog.open());
-
-        add(loginForm);
     }
 
     @Override

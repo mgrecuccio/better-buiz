@@ -12,11 +12,11 @@ public class InvoiceHeaderLayout extends HorizontalLayout {
     private static final String CLIENT_INFORMATION_LABEL = "Client information";
     private static final String ORGANIZATION_INFORMATION_LABEL = "Organization information";
 
-    private final VerticalLayout organizationLayout = new VerticalLayout();
-    private final VerticalLayout clientLayout = new VerticalLayout();
+    private VerticalLayout organizationLayout = new VerticalLayout();
+    private VerticalLayout clientLayout = new VerticalLayout();
 
-    private final OrganizationForm organizationForm = new OrganizationForm();
-    private final ClientForm clientForm = new ClientForm();
+    OrganizationForm organizationForm = new OrganizationForm();
+    ClientForm clientForm = new ClientForm();
 
     public InvoiceHeaderLayout() {
         addClassName("invoice-header");

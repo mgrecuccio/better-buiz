@@ -16,13 +16,13 @@ public class InvoiceInfoLayout extends VerticalLayout {
     private static final String CLIENT_BCE = "Client BCE";
     private static final String DUE_DATE = "Due date";
 
-    private final FormLayout invoiceInfoForm = new FormLayout();
-    private final Paragraph invoiceInfoLabel = new Paragraph();
-    private final InvoiceNumberLayout invoiceNumber = new InvoiceNumberLayout();
-    private final DatePicker invoiceDate = new DatePicker();
-    private final DatePicker dueDate = new DatePicker();
-    private final TextField clientVat = new TextField();
-    private final TextField clientBce = new TextField();
+    FormLayout invoiceInfoForm = new FormLayout();
+    Paragraph invoiceInfoLabel = new Paragraph();
+    InvoiceNumberLayout invoiceNumber = new InvoiceNumberLayout();
+    DatePicker invoiceDate = new DatePicker();
+    DatePicker dueDate = new DatePicker();
+    TextField clientVat = new TextField();
+    TextField clientBce = new TextField();
 
     public InvoiceInfoLayout() {
         addClassName("invoice-info-layout");

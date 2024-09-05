@@ -17,9 +17,11 @@ import eu.mgrtech.better.buiz.views.MainLayout;
 import eu.mgrtech.better.buiz.views.clients.details.contracts.ContractTab;
 import eu.mgrtech.better.buiz.views.clients.details.invoices.InvoiceTab;
 import eu.mgrtech.better.buiz.views.clients.details.projects.ProjectsTab;
+import jakarta.annotation.security.PermitAll;
 
 @PageTitle("Client Details")
 @Route(value = "clients/:clientId?", layout = MainLayout.class)
+@PermitAll
 public class ClientDetailsView extends Composite<VerticalLayout> implements HasUrlParameter<String> {
 
     private static final String CONTRACTS_TAB_TITLE = "Contracts";
@@ -33,7 +35,7 @@ public class ClientDetailsView extends Composite<VerticalLayout> implements HasU
     private ProjectsTab projectsTab;
     private InvoiceTab invoiceTab;
 
-    TabSheet tabSheet;
+    TabSheet tabSheet = new TabSheet();
 
     @Override
     public void setParameter(BeforeEvent beforeEvent, String clientId) {
@@ -44,8 +46,9 @@ public class ClientDetailsView extends Composite<VerticalLayout> implements HasU
     }
 
     public ClientDetailsView(ProjectService projectService) {
-        addClassName("client-details-view");
         this.projectService = projectService;
+
+        addClassName("client-details-view");
 
         tabSheet = configureTabs();
 
@@ -55,8 +58,6 @@ public class ClientDetailsView extends Composite<VerticalLayout> implements HasU
     }
 
     private TabSheet configureTabs() {
-        TabSheet tabSheet = new TabSheet();
-
         contractTab = new ContractTab();
         invoiceTab = new InvoiceTab();
         projectsTab = new ProjectsTab(projectService, clientId);

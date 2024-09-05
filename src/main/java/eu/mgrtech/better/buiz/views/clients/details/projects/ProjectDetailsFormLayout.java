@@ -43,7 +43,7 @@ public class ProjectDetailsFormLayout extends FormLayout {
     public ProjectDetailsFormLayout() {
         addClassName("project-details-form");
         configureFormFields(true);
-        Span actionIconSection = buildActionIconsSection();
+        var actionIconSection = buildActionIconsSection();
 
         add(actionIconSection, company, jobType, jobAddress, startDate, endDate, jobDescription);
 
@@ -62,7 +62,7 @@ public class ProjectDetailsFormLayout extends FormLayout {
     }
 
     private Span buildActionIconsSection() {
-        Span iconActionSection = new Span();
+        var iconActionSection = new Span();
         iconActionSection.addClassName("action-icons");
 
         editIcon = LineAwesomeIcon.EDIT.create();

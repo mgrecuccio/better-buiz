@@ -1,20 +1,22 @@
 package eu.mgrtech.better.buiz.views.clients.details.projects;
 
-import com.vaadin.flow.component.button.Button;
-import eu.mgrtech.better.buiz.entities.Project;
-import org.junit.jupiter.api.Test;
-
 import java.time.LocalDate;
 import java.util.concurrent.atomic.AtomicReference;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+import eu.mgrtech.better.buiz.entities.Project;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class AddProjectDialogTest {
 
     private AddProjectDialog addProjectDialog = new AddProjectDialog();
 
     @Test
-    public void theDialogIsCorrectlyInitializedTest() {
+    public void testThatTheDialogIsCorrectlyInitialized() {
         addProjectDialog.setProject(new Project());
 
         // Dialog fields
@@ -48,8 +50,8 @@ class AddProjectDialogTest {
     }
 
     @Test
-    public void theProjectIsNotPersistedIfTheInputIsInvalidTest() {
-        Project project = new Project();
+    public void testThatTheProjectIsNotPersistedIfTheInputIsInvalid() {
+        var project = new Project();
 
         addProjectDialog.setProject(project);
 
@@ -59,18 +61,18 @@ class AddProjectDialogTest {
         addProjectDialog.jobType.setValue(""); //invalid field
         addProjectDialog.startDate.setValue(LocalDate.MIN);
 
-        AtomicReference<Project> savedProjectRef = new AtomicReference<>(null);
+        var savedProjectRef = new AtomicReference<>(null);
 
         addProjectDialog.addProjectListener(e -> savedProjectRef.set(e.getProject()));
         addProjectDialog.saveButton.click();
 
-        Project savedProject = savedProjectRef.get();
+        var savedProject = savedProjectRef.get();
         assertNull(savedProject);
     }
 
     @Test
-    public void theProjectIsPersistedIfTheInputIsValidTest() {
-        Project project = new Project();
+    public void testThatTheProjectIsPersistedIfTheInputIsValid() {
+        var project = new Project();
 
         addProjectDialog.setProject(project);
 
@@ -100,13 +102,13 @@ class AddProjectDialogTest {
     }
 
     @Test
-    public void saveAndCancelButtonArePresentTest() {
-        Button saveButton = addProjectDialog.saveButton;
+    public void testThatTheButtonsSaveAndCancelArePresent() {
+        var saveButton = addProjectDialog.saveButton;
 
         assertTrue(saveButton.isVisible());
         assertTrue(saveButton.isEnabled());
 
-        Button cancelButton = addProjectDialog.cancelButton;
+        var cancelButton = addProjectDialog.cancelButton;
         assertTrue(cancelButton.isVisible());
         assertTrue(cancelButton.isEnabled());
     }

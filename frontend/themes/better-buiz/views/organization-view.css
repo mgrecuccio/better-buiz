@@ -165,17 +165,19 @@
   min-height: 32px;
 }
 
-.view-content {
-    width: 100%;
-    flex-grow: 1;
+.content {
+  width: 100%;
+  flex-grow: 1;
+  padding: 15px;
 }
 
 .info-box {
-    width: 100%;
-    height: min-content;
+  width: 100%;
+  height: min-content;
+
 }
 
 .info-box-content {
-    width: 100%;
-    font-size: var(--lumo-font-size-xs);
+  width: 100%;
+  font-size: var(--lumo-font-size-xs);
 }

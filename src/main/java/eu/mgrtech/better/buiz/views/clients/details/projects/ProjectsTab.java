@@ -1,6 +1,7 @@
 package eu.mgrtech.better.buiz.views.clients.details.projects;
 
-import java.util.List;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
@@ -19,12 +20,14 @@ import eu.mgrtech.better.buiz.events.project.DeleteProjectEvent;
 import eu.mgrtech.better.buiz.events.project.UpdateProjectEvent;
 import eu.mgrtech.better.buiz.services.ProjectService;
 
+@Component
+@Scope("prototype")
 public class ProjectsTab extends Div  {
 
     private static final String COMPANY_PROJECT = "Company Project";
     private static final String JOB_TITLE = "Job Title";
-    public static final String ADD_PROJECT_BTN_LABEL = "Add Project";
-    public static final String NO_PROJECTS_FOUND_HINT_TEXT = "No projects found.";
+    private static final String ADD_PROJECT_BTN_LABEL = "Add Project";
+    private static final String NO_PROJECTS_FOUND_HINT_TEXT = "No projects found.";
 
     private final ProjectService projectService;
     private final String clientId;
@@ -39,10 +42,10 @@ public class ProjectsTab extends Div  {
     Div noProjectHint = new Div();
 
     public ProjectsTab(ProjectService projectService, String clientId) {
-        addClassName("projects-tab");
-
         this.projectService = projectService;
         this.clientId = clientId;
+
+        addClassName("projects-tab");
 
         noProjectHint.setText(NO_PROJECTS_FOUND_HINT_TEXT);
         noProjectHint.addClassName("hint-no-projects");
@@ -88,19 +91,19 @@ public class ProjectsTab extends Div  {
     }
 
     private Icon configureDeleteProjectDialog(Project project) {
-        Icon deleteIcon = VaadinIcon.TRASH.create();
+        var deleteIcon = VaadinIcon.TRASH.create();
         deleteIcon.addClickListener(e -> openDeleteProjectDialog(project));
         return deleteIcon;
     }
 
     private void openDeleteProjectDialog(Project project) {
-        DeleteProjectDialog deleteProjectDialog = new DeleteProjectDialog(project);
+        var deleteProjectDialog = new DeleteProjectDialog(project);
         deleteProjectDialog.addDeleteListener(this::deleteProject);
         deleteProjectDialog.open();
     }
 
     private void deleteProject(DeleteProjectEvent deleteProjectEvent) {
-        Project project = deleteProjectEvent.getProject();
+        var project = deleteProjectEvent.getProject();
         if (project != null) {
             projectService.delete(project);
             updatedProjectList();
@@ -108,14 +111,14 @@ public class ProjectsTab extends Div  {
     }
 
     private void updateProject(UpdateProjectEvent updateProjectEvent) {
-        Project updatedProject = updateProjectEvent.getProject();
+        var updatedProject = updateProjectEvent.getProject();
         projectService.update(updatedProject);
         updatedProjectList();
         projectGrid.setDetailsVisible(updatedProject, true);
     }
 
     private void updatedProjectList() {
-        List<Project> projectList = projectService.getAllByClientId(clientId);
+        var projectList = projectService.getAllByClientId(clientId);
         if (projectList.isEmpty()) {
             projectGrid.setVisible(false);
             noProjectHint.setVisible(true);

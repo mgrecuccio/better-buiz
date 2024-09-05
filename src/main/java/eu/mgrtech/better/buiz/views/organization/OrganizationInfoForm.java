@@ -26,14 +26,16 @@ public class OrganizationInfoForm extends FormLayout {
     InfoFormTextField generalManager = new InfoFormTextField(GENERAL_MANAGER);
 
     public OrganizationInfoForm(Organization organization) {
-        vatNumber.setValue(organization.vatNumber());
-        companyName.setValue(organization.companyName());
-        startDate.setValue(organization.startDate());
-        address.setValue(organization.address());
-        companyType.setValue(organization.companyType());
-        companyStatus.setValue(organization.companyStatus());
-        emailAddress.setValue(organization.companyEmail());
-        generalManager.setValue(organization.companyGeneralManager());
+        if(organization != null) {
+            vatNumber.setValue(organization.vatNumber());
+            companyName.setValue(organization.companyName());
+            startDate.setValue(organization.startDate());
+            address.setValue(organization.address());
+            companyType.setValue(organization.companyType());
+            companyStatus.setValue(organization.companyStatus());
+            emailAddress.setValue(organization.companyEmail());
+            generalManager.setValue(organization.companyGeneralManager());
+        }
 
         add(vatNumber, companyName, startDate, companyStatus, address, companyType, emailAddress, generalManager);
     }

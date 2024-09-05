@@ -35,8 +35,8 @@ public class TransactionsList extends VerticalLayout {
     HorizontalLayout toolbar = new HorizontalLayout(filterTransactions);
 
     public TransactionsList(List<Transaction> transactions) {
-        addClassName("transactions-list");
         this.transactions = transactions;
+        addClassName("transactions-list");
 
         configureToolbar();
         configureTransactionGrid();

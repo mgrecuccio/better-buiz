@@ -8,8 +8,8 @@ public class InvoiceNumberLayout extends HorizontalLayout {
     private static final String INVOICING_NR_TOOLTIP = "The invoice identifier.";
     private static final String INVOICING_YEAR_TOOLTIP = "Usually represents the current year.";
 
-    private NumberField invoicingYear = new NumberField();
-    private NumberField invoiceNumber = new NumberField();
+    NumberField invoicingYear = new NumberField();
+    NumberField invoiceNumber = new NumberField();
 
     public InvoiceNumberLayout() {
         invoicingYear.getStyle().set("width", "6em");

@@ -56,9 +56,9 @@ class ProjectDetailsFormLayoutTest {
 
     @Test
     public void theActionIconsAreWellConfiguredTest() {
-        SvgIcon editIcon = projectDetailsForm.editIcon;
-        SvgIcon saveChangesIcon = projectDetailsForm.saveChangesIcon;
-        SvgIcon cancelChangesIcon = projectDetailsForm.cancelChangesIcon;
+        var editIcon = projectDetailsForm.editIcon;
+        var saveChangesIcon = projectDetailsForm.saveChangesIcon;
+        var cancelChangesIcon = projectDetailsForm.cancelChangesIcon;
 
         assertTrue(editIcon.isVisible());
         assertFalse(saveChangesIcon.isVisible());
@@ -67,9 +67,9 @@ class ProjectDetailsFormLayoutTest {
 
     @Test
     public void whenClickingOnTheEditIconTheFormIsInEditModeTest() {
-        SvgIcon editIcon = projectDetailsForm.editIcon;
-        SvgIcon saveChangesIcon = projectDetailsForm.saveChangesIcon;
-        SvgIcon cancelChangesIcon = projectDetailsForm.cancelChangesIcon;
+        var editIcon = projectDetailsForm.editIcon;
+        var saveChangesIcon = projectDetailsForm.saveChangesIcon;
+        var cancelChangesIcon = projectDetailsForm.cancelChangesIcon;
 
         assertTrue(editIcon.isVisible());
         assertFalse(saveChangesIcon.isVisible());
@@ -98,8 +98,8 @@ class ProjectDetailsFormLayoutTest {
 
     @Test
     public void whenClickingOnSaveTheChangesArePersistedTest() {
-        SvgIcon editIcon = projectDetailsForm.editIcon;
-        SvgIcon saveChangesIcon = projectDetailsForm.saveChangesIcon;
+        var editIcon = projectDetailsForm.editIcon;
+        var saveChangesIcon = projectDetailsForm.saveChangesIcon;
 
         ComponentUtil.fireEvent(editIcon, new ClickEvent<>(editIcon));
 
@@ -111,8 +111,8 @@ class ProjectDetailsFormLayoutTest {
 
     @Test
     public void whenClickingOnCancelTheChangesAreRevertedTest() {
-        SvgIcon editIcon = projectDetailsForm.editIcon;
-        SvgIcon cancelChangesIcon = projectDetailsForm.cancelChangesIcon;
+        var editIcon = projectDetailsForm.editIcon;
+        var cancelChangesIcon = projectDetailsForm.cancelChangesIcon;
 
         ComponentUtil.fireEvent(editIcon, new ClickEvent<>(editIcon));
 

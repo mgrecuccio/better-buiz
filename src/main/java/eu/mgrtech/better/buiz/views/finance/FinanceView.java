@@ -1,7 +1,5 @@
 package eu.mgrtech.better.buiz.views.finance;
 
-import java.util.List;
-
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
@@ -12,15 +10,20 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-
-import eu.mgrtech.better.buiz.entities.FinanceSummary;
 import eu.mgrtech.better.buiz.services.FinanceService;
 import eu.mgrtech.better.buiz.views.MainLayout;
 import jakarta.annotation.security.PermitAll;
 
+import java.util.List;
+
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 @PageTitle("Finance | Better Buiz")
 @Route(value = "finances", layout = MainLayout.class)
 @PermitAll
+@Component
+@Scope("prototype")
 public class FinanceView extends Composite<VerticalLayout> {
 
     private final String orgId = "id-1";
@@ -37,11 +40,14 @@ public class FinanceView extends Composite<VerticalLayout> {
     TransactionsList transactionsList;
 
     public FinanceView(FinanceService financeService) {
+        this.financeService = financeService;
+
         addClassName("finance-view");
 
-        this.financeService = financeService;
         fiscalYears = financeService.getFiscalYearsForOrganization(orgId);
-        currentYear = fiscalYears.get(0);
+        if(!fiscalYears.isEmpty()) {
+            currentYear = fiscalYears.get(0);
+        }
 
         configureToolbar();
         configureGraphicLayout();
@@ -86,15 +92,15 @@ public class FinanceView extends Composite<VerticalLayout> {
     private void configureSummaryDiv() {
         summaryDiv.addClassName("summary");
 
-        FinanceSummary summary = financeService.getSummaryByOrganization(orgId);
+        var summary = financeService.getSummaryByOrganization(orgId);
 
-        H2 summaryTitle = new H2(summary.getBankAccountName());
+        var summaryTitle = new H2(summary.getBankAccountName());
         summaryTitle.addClassName("title");
 
-        H4 summaryIban = new H4(summary.getBankAccountNumber());
+        var summaryIban = new H4(summary.getBankAccountNumber());
         summaryIban.addClassName("iban");
 
-        H3 summaryAmount = new H3(summary.getBankAccountBalance());
+        var summaryAmount = new H3(summary.getBankAccountBalance());
         summaryAmount.addClassName("amount");
 
         summaryDiv.add(summaryTitle, summaryIban, summaryAmount);
@@ -102,6 +108,7 @@ public class FinanceView extends Composite<VerticalLayout> {
 
     private void drawGraph(String fiscalYear) {
         financialGraph = new FinancialGraph(financeService.getFinancialDataByOrganizationAndFiscalYear(orgId, fiscalYear));
+        financialGraph.addClassName("financial-graph");
         financialGraph.draw();
     }
 }

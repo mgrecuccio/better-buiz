@@ -1,15 +1,15 @@
 package eu.mgrtech.better.buiz.views.clients;
 
-import com.vaadin.flow.component.button.Button;
-import eu.mgrtech.better.buiz.entities.Client;
-import eu.mgrtech.better.buiz.entities.ClientStatus;
+import java.util.concurrent.atomic.AtomicReference;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.concurrent.atomic.AtomicReference;
-
-import static org.junit.jupiter.api.Assertions.*;
+import eu.mgrtech.better.buiz.entities.Client;
+import eu.mgrtech.better.buiz.entities.ClientStatus;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ClientFormTest {
 
@@ -25,8 +25,8 @@ class ClientFormTest {
     }
 
     @Test
-    public void formFieldsPopulatedTest() {
-        ClientForm form = new ClientForm();
+    public void testThatTheFormIsPopulatedAsExpected() {
+        var form = new ClientForm();
         form.setClient(client);
         assertEquals("Test-client-name", form.name.getValue());
         assertEquals("BE1234567", form.vatNumber.getValue());
@@ -35,9 +35,9 @@ class ClientFormTest {
     }
 
     @Test
-    public void saveEventHasCorrectValuesTest() {
-        ClientForm form = new ClientForm();
-        Client client = new Client();
+    public void testThatTheSaveEventPersistsNewValues() {
+        var form = new ClientForm();
+        var client = new Client();
         form.setClient(client);
         form.name.setValue("ClientName");
         form.vatNumber.setValue("BE123456");
@@ -49,7 +49,7 @@ class ClientFormTest {
         form.addSaveListener(e -> savedClientRef.set(e.getClient()));
         form.save.click();
 
-        Client savedClient = savedClientRef.get();
+        var savedClient = savedClientRef.get();
 
         assertEquals("ClientName", savedClient.getName());
         assertEquals("BE123456", savedClient.getVatNumber());
@@ -59,9 +59,9 @@ class ClientFormTest {
     }
 
     @Test
-    public void saveEventDoesNotOccurIfValuesAreInvalid() {
-        ClientForm form = new ClientForm();
-        Client client = new Client();
+    public void thestThatTheSaveEventIsNotFiredIfTheValuesAreInvalid() {
+        var form = new ClientForm();
+        var client = new Client();
         form.setClient(client);
         form.name.setValue("ClientName");
         form.vatNumber.setValue("BE1234567");
@@ -73,20 +73,20 @@ class ClientFormTest {
         form.addSaveListener(e -> savedClientRef.set(e.getClient()));
         form.save.click();
 
-        Client savedClient = savedClientRef.get();
+        var savedClient = savedClientRef.get();
 
         assertNull(savedClient);
     }
 
     @Test
-    public void saveAndCancelButtonArePresentTest() {
-        ClientForm form = new ClientForm();
-        Button save = form.save;
+    public void testThatSaveAndCancelButtonsArePresent() {
+        var form = new ClientForm();
+        var save = form.save;
 
         assertTrue(save.isVisible());
         assertTrue(save.isEnabled());
 
-        Button close = form.close;
+        var close = form.close;
         assertTrue(close.isVisible());
         assertTrue(close.isEnabled());
     }
